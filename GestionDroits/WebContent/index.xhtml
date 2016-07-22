@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Index Jsf</title>
+</h:head>
+<h:body>
+	<!-- <h:outputStylesheet library="sources" name="jsf.css"  /> -->
+	<h:outputText id="empLabel" value="Liste des Employes"></h:outputText>
+	<h:form id="listForm">
+		<p:dataTable id="tableUsers" var="user"
+			value="#{userBean.populateEmp()}">
+			<p:column headerText="Id">
+				<h:outputText value="#{user.serialNbr}" />
+			</p:column>
+
+			<p:column headerText="Nom">
+				<h:outputText value="#{user.lastName}" />
+			</p:column>
+
+			<p:column headerText="Prenom">
+				<h:outputText value="#{user.firstName}" />
+			</p:column>
+
+			<p:column headerText="Commentaire">
+				<h:outputText value="#{user.comment}" />
+			</p:column>
+			<p:column>
+				<p:commandButton id="deleteUser"
+					actionListener="#{userBean.deleteUser(user)}" icon="ui-icon-trash"
+					update="listForm" ajax="false">
+				</p:commandButton>
+				
+						<h:commandButton id="updateBtn" action="afficherUser" value="Submit">
+						<c:setPropertyActionListener target="#{userBean.currentUser}"
+						value="#{user}" />
+					</h:commandButton>
+				
+<!-- 				<p:link id="afficherUser" outcome="afficherUser" -->
+<!-- 					includeViewParams="true" value="Afficher"> -->
+<!-- 					<c:param name="param" value="#{user.serialNbr}" /> -->
+					
+<!-- 				</p:link> -->
+			</p:column>
+		</p:dataTable>
+	</h:form>
+
+
+	<h:form id="addForm">
+		<p:growl id="growl" />
+		<p:accordionPanel>
+			<p:tab title="New User">
+				<p:messages id="user" style="margin-bottom:10px;" />
+				<h:panelGrid columns="3" cellpadding="5">
+					<h:outputLabel for="firstname" value="Firstname: *" />
+					<p:inputText id="firstname" value="#{userBean.user.firstName}"
+						required="true" label="Firstname">
+						<!-- <f:validateLength minimum="2" /> -->
+					</p:inputText>
+					<p:message for="firstname" />
+
+					<h:outputLabel for="lastname" value="Lastname: *" />
+					<p:inputText id="lastname" value="#{userBean.user.lastName}"
+						required="true" label="Lastname" />
+					<p:message for="lastname" />
+
+					<h:outputText for="comment" value="Comments: " />
+					<p:inputTextarea id="comment" value="#{userBean.user.comment}"
+						required="false" label="Comment" />
+					<p:message for="comment" />
+				</h:panelGrid>
+				<p:commandButton id="saveBtn" value="Save" icon="ui-icon-check"
+					style="margin:0" actionListener="#{userBean.saveUser}"
+					update="addForm" ajax="false">
+					<c:ajax render="@all" />
+				</p:commandButton>
+
+			</p:tab>
+
+			<p:blockUI block="pnl" trigger="saveBtn" />
+		</p:accordionPanel>
+	</h:form>
+
+</h:body>
+</html>
