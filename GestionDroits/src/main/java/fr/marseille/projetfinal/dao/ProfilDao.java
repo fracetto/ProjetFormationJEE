@@ -2,6 +2,7 @@ package fr.marseille.projetfinal.dao;
 
 import java.util.List;
 import fr.marseille.projetfinal.model.Profil;
+import fr.marseille.projetfinal.model.User;
 
 public interface ProfilDao {
 
@@ -12,6 +13,8 @@ public interface ProfilDao {
     public Profil find(Integer id);// cherche le profil complet par id du profil ou du user
 
     public List<Profil> findAll();
+
+    public List<User> findAll(Integer id);
 
     public void delete(Integer id);
 

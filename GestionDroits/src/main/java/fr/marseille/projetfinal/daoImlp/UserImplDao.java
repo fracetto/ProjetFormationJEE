@@ -53,7 +53,7 @@ public class UserImplDao implements UserDao {
     }
 
     public List<Profil> findAll(Integer id) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("jpaweb");
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("GestionDroits");
         EntityManager entityMng = entityManagerFactory.createEntityManager();
         entityMng.getTransaction().begin();
         List<Profil> profils = new ArrayList<>();
@@ -72,15 +72,6 @@ public class UserImplDao implements UserDao {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("GestionDroits");
         EntityManager entityMng = entityManagerFactory.createEntityManager();
         List<User> users = new ArrayList<>();
-        // Query createQuery = entityMng.createQuery("from Competence");
-        // users = entityMng.createQuery("select u from user u order by u.nom asc").getResultList();
-        users = entityMng.createQuery("from User").getResultList();
-        // for (Object o : entityMng.createQuery("select u from User u order by u.nom asc").getResultList()) {
-        // System.out.println(o);
-        // User user = new User();
-        // user = (User) o;
-        // users.add(user);
-        // }
 
         entityMng.close();
         entityManagerFactory.close();

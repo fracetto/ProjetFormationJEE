@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import fr.marseille.projetfinal.dao.DroitDao;
 import fr.marseille.projetfinal.dao.ProfilDao;
 import fr.marseille.projetfinal.model.Profil;
+import fr.marseille.projetfinal.model.User;
 
 @Service
 public class ProfilService {
@@ -35,6 +36,10 @@ public class ProfilService {
 
     public List<Profil> findAll() {
         return profilDao.findAll();
+    }
+
+    public List<User> findAll(Integer id) {
+        return profilDao.findAll(id);
     }
 
     public Profil update(Profil profil) {

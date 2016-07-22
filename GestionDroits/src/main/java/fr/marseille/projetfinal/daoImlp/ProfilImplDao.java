@@ -8,6 +8,7 @@ import javax.persistence.Persistence;
 import org.springframework.stereotype.Repository;
 import fr.marseille.projetfinal.dao.ProfilDao;
 import fr.marseille.projetfinal.model.Profil;
+import fr.marseille.projetfinal.model.User;
 
 @Repository
 public class ProfilImplDao implements ProfilDao {
@@ -63,6 +64,23 @@ public class ProfilImplDao implements ProfilDao {
         entityManagerFactory.close();
 
         return profils;
+    }
+
+    public List<User> findAll(Integer id) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("GestionDroits");
+        EntityManager entityMng = entityManagerFactory.createEntityManager();
+
+        List<User> users = new ArrayList<>();
+        Profil profil = entityMng.find(Profil.class, id);
+
+        users = profil.getUsers();
+        for (User user : users) {
+            System.out.println("Name USer " + user.getFirstName());
+        }
+        entityMng.close();
+        entityManagerFactory.close();
+
+        return users;
     }
 
     @Override
