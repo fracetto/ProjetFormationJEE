@@ -3,7 +3,7 @@ package beans;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
@@ -12,9 +12,9 @@ import fr.marseille.projetfinal.model.Profil;
 import fr.marseille.projetfinal.service.ProfilService;
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class ListeProfilsBean {
-
+    Integer                                profilId;
     Profil                                 profil;
     private ClassPathXmlApplicationContext context;
     private ProfilService                  profilServiceBean;
@@ -35,6 +35,14 @@ public class ListeProfilsBean {
     // }
     // return null;
     // }
+
+    public Integer getProfilId() {
+        return profilId;
+    }
+
+    public void setProfilId(Integer profilId) {
+        this.profilId = profilId;
+    }
 
     public Profil getProfil() {
         // if (profil == null) {
@@ -63,8 +71,8 @@ public class ListeProfilsBean {
     }
 
     public void onRowEdit(RowEditEvent event) {
-        System.out.println("je suis dans evebnt la !");
-        FacesMessage msg = new FacesMessage("Profil Edited");
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO + "Edit Changed " + profilId);
+        // FacesMessage msg = new FacesMessage("Profil Edited");
         FacesContext.getCurrentInstance().addMessage(null, msg);
 
     }
@@ -75,8 +83,12 @@ public class ListeProfilsBean {
     }
 
     public void onCellEdit(CellEditEvent event) {
+
         Object oldValue = event.getOldValue();
-        Object newValue = event.getNewValue();
+        profil.setId(profilId);
+        update(profil);
+        Profil newValue = (Profil) event.getNewValue();
+        System.out.println();
         if (newValue != null && !newValue.equals(oldValue)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed",
                     "Old: " + oldValue + ", New:" + newValue);

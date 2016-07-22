@@ -67,7 +67,24 @@ public class ProfilImplDao implements ProfilDao {
 
     @Override
     public Profil update(Profil profil) {
-        return profil;
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("GestionDroits");
+        EntityManager entityMng = entityManagerFactory.createEntityManager();
+
+        // debut de la transaction
+        entityMng.getTransaction().begin();
+        Profil profil1 = entityMng.find(Profil.class, profil.getId());
+
+        if (null != profil1) {
+            profil1.setId(profil.getId());
+            profil1.setName(profil.getName());
+            profil1.setDescription(profil.getDescription());
+            profil1.setPermissions(null);
+            profil1.setUsers(null);
+        }
+        entityMng.merge(profil1);
+        entityMng.getTransaction().commit();
+        entityMng.close();
+        return profil1;
     }
 
     public void delete(Integer id) {
