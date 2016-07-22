@@ -57,14 +57,7 @@ public class ProfilImplDao implements ProfilDao {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("GestionDroits");
         EntityManager entityMng = entityManagerFactory.createEntityManager();
         List<Profil> profils = new ArrayList<>();
-        // Query createQuery = entityMng.createQuery("from Competence");
-        for (Object o : entityMng.createQuery("select p from Profil p order by p.nom asc").getResultList()) {
-            System.out.println(o);
-            Profil profil = new Profil();
-            profil = (Profil) o;
-            profils.add(profil);
-
-        }
+        profils = entityMng.createQuery("from Profil").getResultList();
 
         entityMng.close();
         entityManagerFactory.close();
@@ -83,11 +76,11 @@ public class ProfilImplDao implements ProfilDao {
         // supprimer les éléments dea ltable des personnes
         entityMng.getTransaction().begin();
         Profil profil = entityMng.find(Profil.class, id);
-
+        System.out.println("j'apdate !!!! ");
         if (null != profil) {
             entityMng.remove(profil);
         }
-
+        entityMng.getTransaction().commit();
         entityMng.close();
         entityManagerFactory.close();
     }
