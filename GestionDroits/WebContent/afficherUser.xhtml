@@ -8,7 +8,7 @@
 <h:head>
 
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>GestionDroits</title>
+	<title>Update</title>
 </h:head>
 <h:body>
 <c:loadBundle var="msg" basename="messages"></c:loadBundle>
@@ -19,8 +19,8 @@
 
 	<h:form id="UpdateUserForm">
 		<p:growl id="growl" />
-		<h3 style="margin-top: 0">Update User - View</h3>
-		<p:panel id="pnl" header="New User" style="margin-bottom:10px;">
+		<h3 style="margin-top: 0">#{msg['user.ihm.form.title']} <h:outputLabel id="serialNbr" value="#{userBean.currentUser.serialNbr}" /></h3>
+		<p:panel id="pnl" header="#{msg['user.ihm.form.label']}" style="margin-bottom:10px;">
 			<p:messages id="user" />
 			<h:panelGrid columns="3" cellpadding="5">
 				<h:outputLabel for="firstname" value="#{msg['user.prop.firstname']}: *" />
@@ -45,7 +45,7 @@
 		</p:panel>
 		
 		
-		<h:commandButton id="updateBtn" action="#{userBean.updateUser()}" value="Save">
+		<h:commandButton id="updateBtn" action="#{userBean.updateUser()}" value="#{msg['user.button.save']}">
 					</h:commandButton>
 				
 		<p:blockUI block="pnl" trigger="updateBtn" />
