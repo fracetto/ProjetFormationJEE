@@ -11,83 +11,83 @@
 </h:head>
 <h:body>
 
-<h:form>
-    <p:dataTable id="tableProfil" var="profil" value="#{listeProfilsBean.findAll()}">
-        <c:facet name="header">
-            Expand rows to see detailed information
-        </c:facet>
-        <p:column style="width:16px">
-            <p:rowToggler />
-        </p:column>
-        <p:column headerText="Id">
-            <h:outputText value="#{profil.id}" />
-        </p:column>
-        <p:column headerText="Profil Name">
-            <h:outputText value="#{profil.name}" />
-        </p:column>
+<!-- <h:form> -->
+<!--     <p:dataTable id="tableProfil" var="profil" value="#{listeProfilsBean.findAll()}"> -->
+<!--         <c:facet name="header"> -->
+<!--             Expand rows to see detailed information -->
+<!--         </c:facet> -->
+<!--         <p:column style="width:16px"> -->
+<!--             <p:rowToggler /> -->
+<!--         </p:column> -->
+<!--         <p:column headerText="Id"> -->
+<!--             <h:outputText value="#{profil.id}" /> -->
+<!--         </p:column> -->
+<!--         <p:column headerText="Profil Name"> -->
+<!--             <h:outputText value="#{profil.name}" /> -->
+<!--         </p:column> -->
         
-        <p:column style="width:32px" >
-           <p:rowEditor />
+<!--         <p:column style="width:32px" > -->
+<!--            <p:rowEditor /> -->
        
            
 
 
  
- <h:commandButton id="updateBtn" action="updateProfil" value="Update" >
-						<c:setPropertyActionListener target="#{listeProfilsBean.profil}"
-						value="#{profil}" />
-					</h:commandButton>
+<!--  <h:commandButton id="updateBtn" action="updateProfil" value="Update" > -->
+<!-- 						<c:setPropertyActionListener target="#{listeProfilsBean.profil}" -->
+<!-- 						value="#{profil}" /> -->
+<!-- 					</h:commandButton> -->
  
 
-    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+<!--     <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> -->
  
             
-    <p:growl id="message" showDetail="true" />
+<!--     <p:growl id="message" showDetail="true" /> -->
  
-    <p:commandButton value="Delete" actionListener="#{listeProfilsBean.delete(profil)}" update="message" modal="true" icon="ui-icon-trash">
-        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" update="tableProfil" ajax="false"/>
-    <c:ajax render="@all" />
-    </p:commandButton>
+<!--     <p:commandButton value="Delete" actionListener="#{listeProfilsBean.delete(profil)}" update="message" modal="true" icon="ui-icon-trash"> -->
+<!--         <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" update="tableProfil" ajax="false"/> -->
+<!--     <c:ajax render="@all" /> -->
+<!--     </p:commandButton> -->
     
  
-    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-    </p:confirmDialog>
+<!--     <p:confirmDialog global="true" showEffect="fade" hideEffect="fade"> -->
+<!--         <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" /> -->
+<!--         <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" /> -->
+<!--     </p:confirmDialog> -->
 
-        </p:column>
+<!--         </p:column> -->
  
-        <p:rowExpansion>
-            <p:panelGrid  columns="2" columnClasses="label,value" style="width:100%">
-                <c:facet name="header">
-                    <p:graphicImage value="Administrateur.png" style="width:100%;height:25%"/> 
-                </c:facet>
+<!--         <p:rowExpansion> -->
+<!--             <p:panelGrid  columns="2" columnClasses="label,value" style="width:100%"> -->
+<!--                 <c:facet name="header"> -->
+<!--                     <p:graphicImage value="Administrateur.png" style="width:100%;height:25%"/>  -->
+<!--                 </c:facet> -->
  
-                <h:outputText value="Id:" />
-                <h:outputText value="#{profil.id}" />
+<!--                 <h:outputText value="Id:" /> -->
+<!--                 <h:outputText value="#{profil.id}" /> -->
  
-                <h:outputText value="Profil Name:" />
-                <h:outputText value="#{profil.name}" />
+<!--                 <h:outputText value="Profil Name:" /> -->
+<!--                 <h:outputText value="#{profil.name}" /> -->
  
-                <h:outputText value="Description:" />
-                <h:outputText value="#{profil.description}" style="color:#{car.color}"/>
+<!--                 <h:outputText value="Description:" /> -->
+<!--                 <h:outputText value="#{profil.description}" style="color:#{car.color}"/> -->
  
                 
-            </p:panelGrid>
-        </p:rowExpansion>
+<!--             </p:panelGrid> -->
+<!--         </p:rowExpansion> -->
         
-    </p:dataTable>
-</h:form>
+<!--     </p:dataTable> -->
+<!-- </h:form> -->
 
 
 
 
-
+<!-- ////////////////////////////////////////////////////////////////////////// -->
 
 <h:form id="form">
    <p:growl id="msgs" showDetail="true"/>
  
-   <p:dataTable id="profil" var="profil" value="#{listeProfilsBean.findAll()}"  editable="true" style="margin-bottom:20px">
+   <p:dataTable id="profilTable" var="profil" value="#{listeProfilsBean.findAll()}"  editable="true" style="margin-bottom:20px">
        <c:facet name="header">
            Row Editing
        </c:facet>
@@ -98,48 +98,50 @@
             <p:rowToggler />
 
         </p:column>
-<!--        <p:ajax  event="rowEdit" listener="#{listeProfilsBean.update(profil)}" actionListener="#{listeProfilsBean.update(profil)}" update=":form:msgs" /> -->
-<!--        <p:ajax event="rowEditCancel" listener="#{listeProfilsBean.onRowCancel}" update=":form:msgs" /> -->
+       <p:ajax  event="rowEdit" listener="#{listeProfilsBean.onRowEdit}" update=":form:msgs" />
+       <p:ajax event="rowEditCancel" listener="#{listeProfilsBean.onRowCancel}" update=":form:msgs" />
  
        <p:column headerText="Id" style="width:55px">
-           <p:cellEditor>
+           <p:cellEditor id="ceId">
                <c:facet name="output"><h:outputText value="#{profil.id}" /></c:facet>
-               <c:facet name="input"><p:inputText id="modelInput" value="#{profil.id}" style="width:100%"/></c:facet>
+               <c:facet name="input"><p:inputText id="modelInput" value="#{listeProfilsBean.profilId}" style="width:100%" ajax="false" update=":form:profilTable" />				
+
+</c:facet>
            </p:cellEditor>
        </p:column>
  
        <p:column headerText="Name" style="width:65px">
            <p:cellEditor>
                <c:facet name="output"><h:outputText value="#{profil.name}" /></c:facet>
-               <c:facet name="input"><p:inputText value="#{profil.name}" style="width:100%" label="Year"/></c:facet>
+               <c:facet name="input"><p:inputText value="#{profil.name}" style="width:100%" label="profil.name"/></c:facet>
            </p:cellEditor>
        </p:column>
  
-       <p:column headerText="Profil" style="width:65px">
-           <p:cellEditor>
-               <c:facet name="output"><h:outputText value="#{profil.description}" /></c:facet>
-               <c:facet name="input">
-                   <h:selectOneMenu value="#{profil.description}" style="width:100%">
-                       <c:selectItems value="#{listProfilsBean.profil.description}" var="man" itemLabel="#{man}" itemValue="#{man}" />
-                   </h:selectOneMenu>
-               </c:facet>
-           </p:cellEditor>
-       </p:column>
+<!--        <p:column headerText="Profil" style="width:65px"> -->
+<!--            <p:cellEditor> -->
+<!--                <c:facet name="output"><h:outputText value="#{profil.description}" /></c:facet> -->
+<!--                <c:facet name="input"> -->
+<!--                    <h:selectOneMenu value="#{profil.description}" style="width:100%"> -->
+<!--                        <c:selectItems value="#{listProfilsBean.profil.description}" var="man" itemLabel="#{man}" itemValue="#{man}" /> -->
+<!--                    </h:selectOneMenu> -->
+<!--                </c:facet> -->
+<!--            </p:cellEditor> -->
+<!--        </p:column> -->
  
-       <p:column headerText="User" style="width:65px">
-           <p:cellEditor>
-               <c:facet name="output"><h:outputText value="#{profil.description}" /></c:facet>
-               <c:facet name="input">
-                   <h:selectOneMenu value="#{profil.description}" style="width:100%">
-                       <c:selectItems value="#{listProfilsBean.profil.users}" var="color" itemLabel="#{color}" itemValue="#{color}" />
-                   </h:selectOneMenu>
-               </c:facet>
-           </p:cellEditor>
-       </p:column>
+<!--        <p:column headerText="User" style="width:65px"> -->
+<!--            <p:cellEditor> -->
+<!--                <c:facet name="output"><h:outputText value="#{profil.description}" /></c:facet> -->
+<!--                <c:facet name="input"> -->
+<!--                    <h:selectOneMenu value="#{profil.description}" style="width:100%"> -->
+<!--                        <c:selectItems value="#{listProfilsBean.profil.users}" var="color" itemLabel="#{color}" itemValue="#{color}" /> -->
+<!--                    </h:selectOneMenu> -->
+<!--                </c:facet> -->
+<!--            </p:cellEditor> -->
+<!--        </p:column> -->
  
        <p:column style="width:32px">
            <p:rowEditor />
-<!--            <p:growl id="message" showDetail="true" /> -->
+           <p:growl id="message" showDetail="true" />
 <!--             <p:commandButton value="Update" actionListener="#{listeProfilsBean.update(profil)}" icon="ui-icon-trash"> -->
 <!--     <c:ajax render="@all" /> -->
 <!--     </p:commandButton> -->
