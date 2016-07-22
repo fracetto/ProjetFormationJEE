@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Update</title>
+</h:head>
+<h:body>
+<c:loadBundle var="msg" basename="messages"></c:loadBundle>
+
+	<!-- dataTable necessary to show profiles -->
+	<!-- here modified rowKey by profile id / profile name ? -->
+
+
+	<h:form id="UpdateUserForm">
+		<p:growl id="growl" />
+		<h3 style="margin-top: 0">#{msg['user.ihm.form.title']} <h:outputLabel id="serialNbr" value="#{userBean.currentUser.serialNbr}" /></h3>
+		<p:panel id="pnl" header="#{msg['user.ihm.form.label']}" style="margin-bottom:10px;">
+			<p:messages id="user" />
+			<h:panelGrid columns="3" cellpadding="5">
+				<h:outputLabel for="firstname" value="#{msg['user.prop.firstname']}: *" />
+				<p:inputText id="firstname"
+					value="#{userBean.currentUser.firstName}" required="true"
+					label="Firstname">
+					<!-- <f:validateLength minimum="2" /> -->
+				</p:inputText>
+				<p:message for="firstname" />
+
+				<h:outputLabel for="lastname" value="#{msg['user.prop.lastname']}: *" />
+				<p:inputText id="lastname" value="#{userBean.currentUser.lastName}"
+					required="true" label="Lastname" />
+				<p:message for="lastname" />
+
+				<h:outputText for="comment" value="#{msg['user.prop.comment']}: " />
+				<p:inputTextarea id="comment"
+					value="#{userBean.currentUser.comment}" required="false"
+					label="Comment" />
+				<p:message for="comment" />
+			</h:panelGrid>
+		</p:panel>
+		
+		
+		<h:commandButton id="updateBtn" action="#{userBean.updateUser()}" value="#{msg['user.button.save']}">
+					</h:commandButton>
+				
+		<p:blockUI block="pnl" trigger="updateBtn" />
+	</h:form>
+</h:body>
+</html>
