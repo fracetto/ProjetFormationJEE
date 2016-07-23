@@ -9,6 +9,10 @@ import fr.marseille.projetfinal.dao.UserDao;
 import fr.marseille.projetfinal.model.Profil;
 import fr.marseille.projetfinal.model.User;
 
+/**
+ * TODO Throws DAOException in UserService class
+ */
+
 @Service
 public class UserService {
     @Autowired

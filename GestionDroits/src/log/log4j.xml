@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+	debug="false">
+
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%15.15t] - [%d{dd/MM/yy hh:mm:ss:sss z}] %5p %c{2}: %m%n" />
+		</layout>
+	</appender>
+	<appender name="FILE" class="org.apache.log4j.RollingFileAppender">
+		<!-- Variable environnement ${jboss.server.home.dir} géré par JBoss -->
+		<param name="File" value="${jboss.server.home.dir}/log/annonce.log" />
+		<param name="MaxFileSize" value="10MB" />
+		<param name="MaxBackupIndex" value="10" />
+
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%15.15t] - [%d{dd/MM/yy hh:mm:ss:sss z}] %5p %c{2}: %m%n" />
+		</layout>
+	</appender>
+	<!-- <appender name="ROOT" class="org.apache.log4j.RollingFileAppender">
+		Variable environnement ${jboss.server.home.dir} géré par JBoss
+		<param name="File" value="${jboss.server.home.dir}/log/root.log" />
+		<param name="MaxFileSize" value="10MB" />
+		<param name="MaxBackupIndex" value="10" />
+
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%15.15t] - [%d{dd/MM/yy hh:mm:ss:sss z}] %5p %c{2}: %m%n" />
+		</layout>
+	</appender> -->
+
+<!-- 	<category> ou <logger> -->
+<!-- DEBUG, INFO, WARNING, ERROR, FATAL -->
+<!-- 	additivity="false" permet de ne pas logger deux fois (si l'on stipule les apprender-ref)-->
+	<category name="fr.marseille.projetfinal" additivity="false">
+		<priority value="DEBUG" />
+		<appender-ref ref="CONSOLE" />
+		<!-- <appender-ref ref="FILE" /> -->
+	</category>
+
+<!-- 	Pour tout le reste -->
+	<root>
+		<priority value="INFO" />
+		<appender-ref ref="CONSOLE" /> <!-- ROOT -->
+	</root>
+
+
+</log4j:configuration>
