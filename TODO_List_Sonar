@@ -1,0 +1,5 @@
+Après avoir lancé Sonar, le projet est avec la note A pas de bug majeur, ni critique !!
+
+Changement des fichiers Service à prevoir pour la gestion des erreurs;
+Implementation du logger en cours pour UserBean;
+Implementation du logger a prevoir pour ProfilBean / Donia (lundi au plus tard, d'après implementation dans UserBean);
