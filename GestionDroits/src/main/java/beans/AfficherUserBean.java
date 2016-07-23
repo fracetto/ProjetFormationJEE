@@ -14,7 +14,7 @@ public class AfficherUserBean {
     private User                           user;
     private ClassPathXmlApplicationContext context;
 
-    private UserService userServiceBean;
+    private UserService                    userServiceBean;
 
     public AfficherUserBean() {
         this.context = new ClassPathXmlApplicationContext("application-context.xml");
@@ -33,12 +33,26 @@ public class AfficherUserBean {
         this.user = user;
     }
 
+    /**
+     * @PostConstruct public User init() { if (currentUser == null) { Map<String, String> requestMap =
+     *                FacesContext.getCurrentInstance().getExternalContext() .getRequestParameterMap(); String strParam
+     *                = requestMap.get("param"); if (!NULL_STR.equals(strParam) & strParam != null) { serialNbr =
+     *                Integer.parseInt(strParam); // Access on user by id ClassPathXmlApplicationContext context = new
+     *                ClassPathXmlApplicationContext("application-context.xml"); UserService userServiceBean =
+     *                (UserService) context.getBean("userService"); currentUser = userServiceBean.find(serialNbr); }
+     *                else { // currentUser = user; } } return currentUser; }
+     */
+
     public User getCurrentUser() {
+
+        /**
+         * The method getCurrentUser could be replace the commented method init() above
+         */
+
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String str = params.get("param");
         if (!str.isEmpty()) {
             user = userServiceBean.find(Integer.parseInt(str));
-            System.out.println("Le user est : " + user.getSerialNbr());
             return user;
         }
         return null;

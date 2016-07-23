@@ -10,6 +10,10 @@ import fr.marseille.projetfinal.dao.ProfilDao;
 import fr.marseille.projetfinal.model.Profil;
 import fr.marseille.projetfinal.model.User;
 
+/**
+ * TODO The ProfilImplDao class must declare a constant String GestionDroits
+ */
+
 @Repository
 public class ProfilImplDao implements ProfilDao {
 
@@ -74,6 +78,7 @@ public class ProfilImplDao implements ProfilDao {
         Profil profil = entityMng.find(Profil.class, id);
 
         users = profil.getUsers();
+        // TODO suppress loop System.out
         for (User user : users) {
             System.out.println("Name USer " + user.getFirstName());
         }

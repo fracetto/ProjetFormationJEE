@@ -13,13 +13,15 @@ import fr.marseille.projetfinal.model.User;
 @Repository
 public class UserImplDao implements UserDao {
 
+    private static final String EMF = "GestionDroits";
+
     public UserImplDao() {
         super();
     }
 
     @Override
     public User save(User user) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("GestionDroits");
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(EMF);
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         entityManager.getTransaction().begin();
@@ -40,8 +42,9 @@ public class UserImplDao implements UserDao {
     }
 
     @Override
-    public User find(Integer id) {// find by user
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("GestionDroits");
+    // find by user
+    public User find(Integer id) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(EMF);
         EntityManager entityMng = entityManagerFactory.createEntityManager();
         User user = new User();
         user = entityMng.find(User.class, id);
@@ -53,7 +56,7 @@ public class UserImplDao implements UserDao {
     }
 
     public List<Profil> findAll(Integer id) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("GestionDroits");
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(EMF);
         EntityManager entityMng = entityManagerFactory.createEntityManager();
         entityMng.getTransaction().begin();
         List<Profil> profils = new ArrayList<>();
@@ -69,20 +72,18 @@ public class UserImplDao implements UserDao {
 
     @Override
     public List<User> findAll() {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("GestionDroits");
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(EMF);
         EntityManager entityMng = entityManagerFactory.createEntityManager();
         List<User> users = new ArrayList<>();
         users = (List<User>) entityMng.createQuery("from User").getResultList();
-
         entityMng.close();
         entityManagerFactory.close();
-
         return users;
     }
 
     @Override
     public User update(User user) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("GestionDroits");
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(EMF);
         EntityManager entityMng = entityManagerFactory.createEntityManager();
 
         // debut de la transaction
@@ -103,7 +104,7 @@ public class UserImplDao implements UserDao {
 
     @Override
     public void delete(Integer id) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("GestionDroits");
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(EMF);
         EntityManager entityMng = entityManagerFactory.createEntityManager();
         // supprimer les éléments dea ltable des personnes
         entityMng.getTransaction().begin();
