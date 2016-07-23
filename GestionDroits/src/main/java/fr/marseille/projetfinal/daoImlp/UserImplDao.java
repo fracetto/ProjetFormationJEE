@@ -72,6 +72,7 @@ public class UserImplDao implements UserDao {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("GestionDroits");
         EntityManager entityMng = entityManagerFactory.createEntityManager();
         List<User> users = new ArrayList<>();
+        users = (List<User>) entityMng.createQuery("from User").getResultList();
 
         entityMng.close();
         entityManagerFactory.close();
