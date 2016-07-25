@@ -53,14 +53,8 @@ public class DroitImplDao implements DroitDao {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("GestionDroits");
         EntityManager entityMng = entityManagerFactory.createEntityManager();
         List<Droit> droits = new ArrayList<>();
-        // Query createQuery = entityMng.createQuery("from Competence");
-        for (Object o : entityMng.createQuery("select d from Droit d order by d.nom asc").getResultList()) {
-            System.out.println(o);
-            Droit droit = new Droit();
-            droit = (Droit) o;
-            droits.add(droit);
 
-        }
+        droits = entityMng.createQuery("from Droit").getResultList();
 
         entityMng.close();
         entityManagerFactory.close();
@@ -80,7 +74,7 @@ public class DroitImplDao implements DroitDao {
             droit1.setLabeel(droit.getLabeel());
             droit1.setProfiles(droit.getProfiles());
         }
-
+        entityMng.merge(droit1);
         entityMng.getTransaction().commit();
         entityMng.close();
         return droit1;
@@ -96,7 +90,7 @@ public class DroitImplDao implements DroitDao {
         if (null != droit) {
             entityMng.remove(droit);
         }
-
+        entityMng.getTransaction().commit();
         entityMng.close();
         entityManagerFactory.close();
     }

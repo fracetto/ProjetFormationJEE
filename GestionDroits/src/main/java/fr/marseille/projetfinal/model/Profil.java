@@ -42,7 +42,6 @@ public class Profil {
      */
     public Profil() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -73,11 +72,11 @@ public class Profil {
         this.users = users;
     }
 
-    public List<Droit> getPermissions() {
+    public List<Droit> getDroits() {
         return droits;
     }
 
-    public void setPermissions(List<Droit> droits) {
+    public void setDroits(List<Droit> droits) {
         this.droits = droits;
     }
 

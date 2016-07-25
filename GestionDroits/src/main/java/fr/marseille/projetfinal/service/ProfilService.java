@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import fr.marseille.projetfinal.dao.DroitDao;
 import fr.marseille.projetfinal.dao.ProfilDao;
+import fr.marseille.projetfinal.model.Droit;
 import fr.marseille.projetfinal.model.Profil;
 import fr.marseille.projetfinal.model.User;
 
@@ -40,6 +41,10 @@ public class ProfilService {
 
     public List<User> findAll(Integer id) {
         return profilDao.findAll(id);
+    }
+
+    public List<Droit> findAllDroits(Integer id) {
+        return profilDao.findAllDroits(id);
     }
 
     public Profil update(Profil profil) {
