@@ -8,6 +8,10 @@ import fr.marseille.projetfinal.model.Droit;
 import fr.marseille.projetfinal.model.Profil;
 import fr.marseille.projetfinal.model.User;
 
+/**
+ * TODO Throws DAOException in ProfilService class
+ */
+
 @Service
 public class ProfilService {
     @Autowired

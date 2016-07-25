@@ -37,25 +37,25 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer serialNbr;
+    private Integer      serialNbr;
 
-    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Profil> profiles = new ArrayList<>();
 
     /**
      * 
      */
-    private String lastName;
+    private String       lastName;
 
     /**
      * 
      */
-    private String firstName;
+    private String       firstName;
 
     /**
      * 
      */
-    private String comment;
+    private String       comment;
 
     /**
      * Default constructor

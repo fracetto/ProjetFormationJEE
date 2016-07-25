@@ -6,6 +6,10 @@ import org.springframework.stereotype.Service;
 import fr.marseille.projetfinal.dao.DroitDao;
 import fr.marseille.projetfinal.model.Droit;
 
+/**
+ * TODO Throws DAOException in DroitService class
+ */
+
 @Service
 public class DroitService {
     @Autowired
