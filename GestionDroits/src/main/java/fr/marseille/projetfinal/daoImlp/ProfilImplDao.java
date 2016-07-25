@@ -101,7 +101,7 @@ public class ProfilImplDao implements ProfilDao {
             profil1.setId(profil.getId());
             profil1.setName(profil.getName());
             profil1.setDescription(profil.getDescription());
-            profil1.setPermissions(null);
+            profil1.setDroits(null);
             profil1.setUsers(null);
         }
         entityMng.merge(profil1);

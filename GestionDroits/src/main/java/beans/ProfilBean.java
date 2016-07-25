@@ -2,6 +2,7 @@ package beans;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -27,11 +28,11 @@ public class ProfilBean {
         this.profilDefault = new Profil();
     }
 
-    // @PostConstruct
+    @PostConstruct
     public void init() {
         profilDefault.setName("USER_TEST");
         profilDefault.setDescription("Utilisateur lambda de l'application");
-        profilDefault.setPermissions(null);
+        profilDefault.setDroits(null);
     }
 
     public Profil save(Profil profil) {
