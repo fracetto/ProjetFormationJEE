@@ -3,7 +3,9 @@ package fr.marseille.projetfinal.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,25 +37,25 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer serialNbr;
+    private Integer      serialNbr;
 
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Profil> profiles = new ArrayList<>();
 
     /**
      * 
      */
-    private String lastName;
+    private String       lastName;
 
     /**
      * 
      */
-    private String firstName;
+    private String       firstName;
 
     /**
      * 
      */
-    private String comment;
+    private String       comment;
 
     /**
      * Default constructor

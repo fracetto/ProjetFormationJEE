@@ -11,19 +11,23 @@
 	<title>Update</title>
 </h:head>
 <h:body>
-<c:loadBundle var="msg" basename="messages"></c:loadBundle>
+	<c:loadBundle var="msg" basename="messages"></c:loadBundle>
 
 	<!-- dataTable necessary to show profiles -->
 	<!-- here modified rowKey by profile id / profile name ? -->
 
-
+<h3 style="margin-top: 0"><h:outputText id="UpdateUserTitle" value="#{msg['user.ihm.form.title']}"/>
+			<h:outputLabel id="serialNbr"
+				value="#{userBean.currentUser.serialNbr}" />
+		</h3>
 	<h:form id="UpdateUserForm">
 		<p:growl id="growl" />
-		<h3 style="margin-top: 0">#{msg['user.ihm.form.title']} <h:outputLabel id="serialNbr" value="#{userBean.currentUser.serialNbr}" /></h3>
-		<p:panel id="pnl" header="#{msg['user.ihm.form.label']}" style="margin-bottom:10px;">
+		<p:panel id="pnl" header="#{msg['user.ihm.form.label']}"
+			style="margin-bottom:10px;">
 			<p:messages id="user" />
 			<h:panelGrid columns="3" cellpadding="5">
-				<h:outputLabel for="firstname" value="#{msg['user.prop.firstname']}: *" />
+				<h:outputLabel for="firstname"
+					value="#{msg['user.prop.firstname']}: *" />
 				<p:inputText id="firstname"
 					value="#{userBean.currentUser.firstName}" required="true"
 					label="Firstname">
@@ -31,7 +35,8 @@
 				</p:inputText>
 				<p:message for="firstname" />
 
-				<h:outputLabel for="lastname" value="#{msg['user.prop.lastname']}: *" />
+				<h:outputLabel for="lastname"
+					value="#{msg['user.prop.lastname']}: *" />
 				<p:inputText id="lastname" value="#{userBean.currentUser.lastName}"
 					required="true" label="Lastname" />
 				<p:message for="lastname" />
@@ -42,13 +47,34 @@
 					label="Comment" />
 				<p:message for="comment" />
 			</h:panelGrid>
+			<p:panelGrid columns="1" cellpadding="5">
+				<p:dataTable id="tableProfil" var="profil"
+					value="#{userBean.findAllProfiles(userBean.currentUser)}"> <!--  -->
+					<p:column style="width:16px">
+						<p:rowToggler />
+					</p:column>
+					<p:column headerText="Id">
+						<h:outputText value="#{profil.id}" />
+					</p:column>
+					<p:column headerText="Profil Name">
+						<h:outputText value="#{profil.name}" />
+					</p:column>
+
+					<p:column style="width:32px">
+						<p:rowEditor />
+
+					</p:column>
+				</p:dataTable>
+			</p:panelGrid>
 		</p:panel>
-		
-		
-		<h:commandButton id="updateBtn" action="#{userBean.updateUser()}" value="#{msg['user.button.save']}">
-					</h:commandButton>
-				
+
+
+		<h:commandButton id="updateBtn" action="#{userBean.updateUser()}"
+			value="#{msg['user.button.save']}">
+		</h:commandButton>
+
 		<p:blockUI block="pnl" trigger="updateBtn" />
 	</h:form>
+	
 </h:body>
 </html>
