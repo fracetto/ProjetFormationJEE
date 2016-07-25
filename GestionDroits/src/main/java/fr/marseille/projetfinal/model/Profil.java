@@ -11,11 +11,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Profil.
  */
 @Entity
+
 public class Profil implements Serializable {
 
     /** The id. */
@@ -42,7 +42,6 @@ public class Profil implements Serializable {
      */
     public Profil() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -73,11 +72,11 @@ public class Profil implements Serializable {
         this.users = users;
     }
 
-    public List<Droit> getPermissions() {
+    public List<Droit> getDroits() {
         return droits;
     }
 
-    public void setPermissions(List<Droit> droits) {
+    public void setDroits(List<Droit> droits) {
         this.droits = droits;
     }
 
