@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Profiles List</title>
+</h:head>
+<h:body>
+
+	<h:form id="addForm">
+
+		<!-- 		<p:growl id="growl" /> -->
+		<!-- 		<p:accordionPanel> -->
+
+		<h:panelGrid columns="2" cellpadding="5">
+			<h:column style="width:30%">
+				<h:form>
+					<p:growl id="msg1" showDetail="true" escape="false" />
+
+					<h3 style="margin-top: 0">Users List</h3>
+					<p:pickList id="pickList" value="#{pickListView.cities}"
+						var="cities" itemLabel="#{cities}" itemValue="#{cities}">
+						<p:ajax event="transfer" listener="#{pickListView.onTransfer}"
+							update="msg1" />
+
+					</p:pickList>
+					<p:commandButton id="citySubmit" value="Added Users"
+						update="displayCities1" oncomplete="PF('cityDialog1').show()"
+						style="margin-top:5px" />
+
+
+					<p:dialog modal="true" showEffect="fade" hideEffect="fade"
+						widgetVar="cityDialog1">
+						<h:panelGrid id="displayCities1" columns="2">
+							<h:outputText value="Source: " style="font-weight:bold" />
+							<ui:repeat value="#{pickListView.cities.source}" var="item">
+								<h:outputText value="#{item}" style="margin-right:5px" />
+							</ui:repeat>
+
+							<h:outputText value="Target: " style="font-weight:bold" />
+							<ui:repeat value="#{pickListView.cities.target}" var="item">
+								<h:outputText value="#{item}" style="margin-right:5px" />
+							</ui:repeat>
+						</h:panelGrid>
+					</p:dialog>
+
+				</h:form>
+			</h:column>
+
+
+
+
+			<h:column style="width:70%">
+
+
+				<p:growl id="msg1" showDetail="true" escape="false" />
+
+				<h3 style="margin-top: 0">Permissions List</h3>
+				<h:outputLabel for="menu" />
+				<p:selectCheckboxMenu id="menu" width="20%"
+					value="#{pickListView.selectedPermissions}" label="Cities"
+					filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+					<c:selectItems value="#{pickListView.permissions}" />
+				</p:selectCheckboxMenu>
+				<h:outputText>
+				</h:outputText>
+				<p:commandLink value="Submit" update="display" />
+
+
+				<p:outputPanel id="display"
+					style="width:250px;padding-left:5px;margin-top:10px">
+					<p:dataList value="#{pickListView.selectedPermissions}" var="city"
+						emptyMessage="No cities selected">
+            #{city}
+        </p:dataList>
+				</p:outputPanel>
+
+
+			</h:column>
+
+		</h:panelGrid>
+
+
+
+
+
+
+
+		<!-- 			<p:blockUI block="pnl" trigger="saveBtn" /> -->
+		<!-- 		</p:accordionPanel> -->
+	</h:form>
+
+
+</h:body>
+</html>

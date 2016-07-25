@@ -3,6 +3,7 @@ package fr.marseille.projetfinal.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -47,7 +48,7 @@ public class Droit implements Serializable {
         this.profiles = profils;
     }
 
-    @ManyToMany(mappedBy = "droits", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "droits", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Profil> profiles = new ArrayList<>();
 
     public List<Profil> getProfiles() {

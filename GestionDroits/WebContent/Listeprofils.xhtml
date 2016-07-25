@@ -81,8 +81,10 @@
 								<p:commandButton id="updateBtn" action="updateProfil"
 									icon="ui-icon-pencil" includeViewParams="true">
 									<c:setPropertyActionListener
-										target="#{listeProfilsBean.profil}" value="#{profil}" />
-									<c:param name="param" value="#{profil.id}" />
+										target="#{profilModifierBean.currentProfil}" value="#{profil}" />
+										<c:setPropertyActionListener
+										target="#{profilModifierBean.currentDroits}" value="#{profil.droits}" />
+<!-- 									<c:param name="param" value="#{profil.id}" /> -->
 								</p:commandButton>
 							</h:outputLink>
 							<p:tooltip id="toolTipFade2" for="fade2" value="Update Profil"

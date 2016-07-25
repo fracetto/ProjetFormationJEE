@@ -1,5 +1,6 @@
 package fr.marseille.projetfinal.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
@@ -10,31 +11,30 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Profil.
  */
 @Entity
 
-public class Profil {
+public class Profil implements Serializable {
 
     /** The id. */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Integer     id;
 
     /** The name. */
-    private String name;
+    private String      name;
 
     /** The description. */
-    private String description;
+    private String      description;
 
     @ManyToMany
-    @JoinTable(name = "profil_users", joinColumns = @JoinColumn(name = "profils_id", referencedColumnName = "id") , inverseJoinColumns = @JoinColumn(name = "users_id", referencedColumnName = "serialNbr") )
-    private List<User> users = new ArrayList<>();
+    @JoinTable(name = "profil_users", joinColumns = @JoinColumn(name = "profils_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "users_id", referencedColumnName = "serialNbr"))
+    private List<User>  users  = new ArrayList<>();
 
     @ManyToMany
-    @JoinTable(name = "profil_droits", joinColumns = @JoinColumn(name = "profils_id", referencedColumnName = "id") , inverseJoinColumns = @JoinColumn(name = "droits_id", referencedColumnName = "id") )
+    @JoinTable(name = "profil_droits", joinColumns = @JoinColumn(name = "profils_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "droits_id", referencedColumnName = "id"))
     private List<Droit> droits = new ArrayList<>();
 
     /**
