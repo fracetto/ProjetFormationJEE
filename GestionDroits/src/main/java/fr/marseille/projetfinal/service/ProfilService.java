@@ -3,7 +3,6 @@ package fr.marseille.projetfinal.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import fr.marseille.projetfinal.dao.DroitDao;
 import fr.marseille.projetfinal.dao.ProfilDao;
 import fr.marseille.projetfinal.model.Droit;
 import fr.marseille.projetfinal.model.Profil;
@@ -14,7 +13,7 @@ public class ProfilService {
     @Autowired
     private ProfilDao profilDao;
 
-    public ProfilService(DroitDao droitDao) {
+    public ProfilService(ProfilDao profilDao) {
         super();
         this.profilDao = profilDao;
     }

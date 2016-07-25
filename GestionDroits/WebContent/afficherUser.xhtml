@@ -23,6 +23,7 @@
 		<p:panel id="pnl" header="#{msg['user.ihm.form.label']}" style="margin-bottom:10px;">
 			<p:messages id="user" />
 			<h:panelGrid columns="3" cellpadding="5">
+				
 				<h:outputLabel for="firstname" value="#{msg['user.prop.firstname']}: *" />
 				<p:inputText id="firstname"
 					value="#{userBean.currentUser.firstName}" required="true"

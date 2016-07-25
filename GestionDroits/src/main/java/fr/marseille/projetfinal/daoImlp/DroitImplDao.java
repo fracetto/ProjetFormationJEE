@@ -9,6 +9,10 @@ import org.springframework.stereotype.Repository;
 import fr.marseille.projetfinal.dao.DroitDao;
 import fr.marseille.projetfinal.model.Droit;
 
+/**
+ * TODO The DroitImplDao class must declare a constant String GestionDroits
+ */
+
 @Repository
 public class DroitImplDao implements DroitDao {
 
