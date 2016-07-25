@@ -16,5 +16,10 @@
 <from-outcome>index</from-outcome>
 <to-view-id>/index.xhtml</to-view-id>
 </navigation-case>
+
+		<navigation-case>
+			<from-outcome>updateProfil</from-outcome>
+			<to-view-id>/updateProfil.xhtml</to-view-id>
+		</navigation-case>
 </navigation-rule>
 </faces-config>
