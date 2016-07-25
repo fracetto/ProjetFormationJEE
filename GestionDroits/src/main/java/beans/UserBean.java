@@ -51,7 +51,7 @@ public class UserBean implements Serializable {
     @ManagedProperty(value = "#{localeBean}")
     private LocaleBean                     localebean;
 
-    // @ManagedProperty(value = "#{profilBean}")
+    @ManagedProperty(value = "#{profilBean}")
     private ProfilBean                     profilBean;
 
     public UserBean() {
@@ -59,7 +59,7 @@ public class UserBean implements Serializable {
         this.context = new ClassPathXmlApplicationContext("application-context.xml");
         this.userServiceBean = (UserService) context.getBean("userService");
         this.user = new User();
-        this.profilBean = new ProfilBean();
+        // this.profilBean = new ProfilBean();
     }
 
     /**
@@ -151,13 +151,8 @@ public class UserBean implements Serializable {
                 try {
                     // Save user to the database
                     user = userServiceBean.save(user);
-                    // Default profil creation : setProfils method
-                    // List<User> users = profilBean.getUsers();
-                    List<User> users = new ArrayList<>();
-                    users.add(user);
-                    Profil defProfil = profilBean.getProfilDefault();
-                    defProfil.setUsers(users);
-                    defProfil = profilBean.save(defProfil);
+                    // method to save default Profile to User by User List : users
+                    List<User> users = this.setDefaultProfile(user);
                     this.setProfiles(profiles);
                     currentUser = users.remove(0);
                     // message ihm
@@ -287,6 +282,16 @@ public class UserBean implements Serializable {
 
     public void setProfiles(List<Profil> profiles) {
         this.profiles = profiles;
+    }
+
+    private List<User> setDefaultProfile(User user) {
+        Profil defProfil = profilBean.getProfilDefault();
+        List<User> users = new ArrayList<>();
+        users.add(user);
+        defProfil.setUsers(users);
+        defProfil = profilBean.save(defProfil);
+        this.setProfiles(profiles);
+        return users;
     }
 
     public List<Profil> findAllProfiles(User userTemp) {
