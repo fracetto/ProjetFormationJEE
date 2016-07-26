@@ -152,7 +152,6 @@ public class UserBean implements Serializable {
                     user = userServiceBean.save(user);
                     // method to save default Profile to User by User List : users
                     List<User> users = this.setDefaultProfile(user);
-                    this.setProfiles(profiles);
                     currentUser = users.remove(0);
                     // message ihm
                     FacesMessage message = localizeMessage(SUCCESS);

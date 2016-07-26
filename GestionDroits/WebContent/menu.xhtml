@@ -1,0 +1,24 @@
+<ui:composition
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<c:view locale="#{localeBean.locale}">
+		<div id="menuContent" class="top">
+			<!--  MON MENU  -->
+			<ul>
+				<h:form>
+					<h:selectOneMenu value="#{localeBean.language}" onchange="submit()">
+						<c:selectItem itemValue="en" itemLabel="English" />
+						<c:selectItem itemValue="fr" itemLabel="French" />
+					</h:selectOneMenu>
+				</h:form>
+			</ul>
+			<p:link id="listeUser" outcome="user" includeViewParams="false"
+				value="Liste user" ajax="false">
+				<!-- 					<c:param name="param" value="#{user.serialNbr}" /> -->
+			</p:link>
+		</div>
+		<div></div>
+	</c:view>
+</ui:composition>

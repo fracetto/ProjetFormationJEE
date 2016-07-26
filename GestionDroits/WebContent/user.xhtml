@@ -1,0 +1,98 @@
+<ui:composition template="index.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">	
+	<ui:define name="userContent">
+		<c:loadBundle var="msg" basename="messages"></c:loadBundle>
+		<h3>
+			<h:outputText id="empLabel"
+				value="#{msg['user.ihm.datatable.title']}"></h:outputText>
+		</h3>
+		<h:form id="listForm">
+			<p:dataTable id="tableUsers" var="user"
+				value="#{userBean.populateEmp()}">
+				<p:column headerText="#{msg['user.prop.serialnbr']}">
+					<h:outputText value="#{user.serialNbr}" />
+				</p:column>
+
+				<p:column headerText="#{msg['user.prop.lastname']}">
+					<h:outputText value="#{user.lastName}" />
+				</p:column>
+
+				<p:column headerText="#{msg['user.prop.firstname']}">
+					<h:outputText value="#{user.firstName}" />
+				</p:column>
+
+				<p:column headerText="#{msg['user.prop.comment']}">
+					<h:outputText value="#{user.comment}" />
+				</p:column>
+				<p:column>
+					<p:commandButton actionListener="#{userBean.deleteUser(user)}"
+						icon="ui-icon-trash">
+						<c:ajax render="@form" />
+						<p:confirm header="Confirmation" message="Are you sure?"
+							icon="ui-icon-alert" />
+					</p:commandButton>
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Yes" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="No" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
+
+					<p:commandButton id="updateBtn" action="afficherUser"
+						icon="ui-icon-pencil">
+						<c:setPropertyActionListener target="#{userBean.currentUser}"
+							value="#{user}" />
+					</p:commandButton>
+					<!-- 					value="#{msg['user.button.update']}" -->
+					<!-- 				<p:link id="afficherUser" outcome="afficherUser" -->
+					<!-- 					includeViewParams="true" value="Afficher"> -->
+					<!-- 					<c:param name="param" value="#{user.serialNbr}" /> -->
+
+					<!-- 				</p:link> -->
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+
+
+		<h:form id="addForm">
+			<p:accordionPanel>
+				<p:tab title="#{msg['user.ihm.accordpannel.title']}">
+					<p:messages id="user" style="margin-bottom:10px;" />
+					<h:panelGrid columns="3" cellpadding="5">
+						<h:outputLabel for="firstname"
+							value="#{msg['user.prop.firstname']} : *" />
+						<p:inputText id="firstname" value="#{userBean.user.firstName}"
+							label="Firstname">
+							<!-- <f:validateLength minimum="2" /> -->
+						</p:inputText>
+						<p:message for="firstname" />
+
+						<h:outputLabel for="lastname"
+							value="#{msg['user.prop.lastname']} : *" />
+						<p:inputText id="lastname" value="#{userBean.user.lastName}"
+							label="Lastname" />
+						<p:message for="lastname" />
+
+						<h:outputText for="comment" value="#{msg['user.prop.comment']} : " />
+						<p:inputTextarea id="comment" value="#{userBean.user.comment}"
+							required="false" label="Comment" />
+						<p:message for="comment" />
+					</h:panelGrid>
+					<p:commandButton id="saveBtn" value="#{msg['user.button.create']}"
+						icon="ui-icon-check" style="margin:0"
+						actionListener="#{userBean.saveUser}" update="addForm"
+						ajax="false">
+						<c:ajax render="@all" />
+					</p:commandButton>
+
+				</p:tab>
+
+				<p:blockUI block="pnl" trigger="saveBtn" />
+			</p:accordionPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>
