@@ -47,6 +47,12 @@ public class ProfilImplDao implements ProfilDao {
         EntityManager entityMng = entityManagerFactory.createEntityManager();
         Profil profil = new Profil();
         profil = entityMng.find(Profil.class, id);
+        if (profil.getUsers() != null) {
+            System.out.println("Présence de " + profil.getUsers().size() + " utilisateur(s) : ");
+        }
+        if (profil.getDroits() != null) {
+            System.out.println("Présence de " + profil.getDroits().size() + " droits(s) : ");
+        }
 
         entityMng.close();
         entityManagerFactory.close();
@@ -72,14 +78,15 @@ public class ProfilImplDao implements ProfilDao {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("GestionDroits");
         EntityManager entityMng = entityManagerFactory.createEntityManager();
 
-        List<User> users = new ArrayList<>();
         Profil profil = entityMng.find(Profil.class, id);
 
-        users = profil.getUsers();
+        if (profil.getUsers() != null) {
+            System.out.println("Présence de " + profil.getUsers().size() + " utilisateur(s) : ");
+        }
         entityMng.close();
         entityManagerFactory.close();
 
-        return users;
+        return profil.getUsers();
     }
 
     @Override
@@ -90,11 +97,14 @@ public class ProfilImplDao implements ProfilDao {
         List<Droit> droits = new ArrayList<>();
         Profil profil = entityMng.find(Profil.class, id);
 
-        droits = profil.getDroits();
+        if (profil.getDroits() != null) {
+            System.out.println("Présence de " + profil.getDroits().size() + " droit(s) : ");
+        }
+
         entityMng.close();
         entityManagerFactory.close();
 
-        return droits;
+        return profil.getDroits();
     }
 
     @Override
