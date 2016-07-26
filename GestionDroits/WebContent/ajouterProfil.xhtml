@@ -1,128 +1,126 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition template="index.xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:c="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>Ajouter Profil </title>
-</h:head>
-<h:body>
-	<c:loadBundle var="msg" basename="messages"></c:loadBundle>
+	<ui:define name="userAjouterProfil">
+		<c:loadBundle var="msg" basename="messages"></c:loadBundle>
+		<h:form id="AjouterProfilForm">
+			<p:growl id="growl" />
+			<h3 style="margin-top: 0">
+				<h:outputLabel id="titleAddProfile"
+					value="#{msg['profil.title.add']}" />
+			</h3>
+			<p:panel id="pnl" header="#{msg['profil.header.add']}"
+				style="margin-bottom:10px;">
+				<p:messages id="user" />
+				<h:panelGrid columns="3" cellpadding="5">
+
+					<h:outputLabel for="name" value="#{msg['profil.prop.name']} : *" />
+					<p:inputText id="name" value="#{ajouterProfilBean.profil.name}"
+						required="true" label="Name">
+					</p:inputText>
+					<p:message for="name" />
+
+					<h:outputLabel for="description"
+						value="#{msg['profil.prop.description']} : *" />
+					<p:inputText id="description"
+						value="#{ajouterProfilBean.profil.description}" required="true"
+						label="Description" />
+					<p:message for="description" />
 
 
 
+					<p:growl id="msg1" showDetail="true" escape="false" />
+					<p:panel header="#{msg['profil.prop.users']} : *"
+						style="margin-bottom:10px;">
+						<p:pickList id="pickList"
+							value="#{ajouterProfilBean.usersOfProfil}" var="users"
+							itemLabel="#{users}" itemValue="#{users}">
+							<p:ajax event="transfer"
+								listener="#{ajouterProfilBean.onTransfer}" update="msg1" />
 
-	<h:form id="AjouterProfilForm">
-		<p:growl id="growl" />
-		<h3 style="margin-top: 0"><h:outputLabel id="titleAddProfile" value="#{msg['profil.title.add']}" /></h3>
-		<p:panel id="pnl" header="#{msg['profil.header.add']}" style="margin-bottom:10px;">
-			<p:messages id="user" />
-			<h:panelGrid columns="3" cellpadding="5">
-
-				<h:outputLabel for="name" value="#{msg['profil.prop.name']} : *" />
-				<p:inputText id="name" value="#{ajouterProfilBean.profil.name}"
-					required="true" label="Name">
-				</p:inputText>
-				<p:message for="name" />
-
-				<h:outputLabel for="description"
-					value="#{msg['profil.prop.description']} : *" />
-				<p:inputText id="description"
-					value="#{ajouterProfilBean.profil.description}" required="true"
-					label="Description" />
-				<p:message for="description" />
+						</p:pickList>
+						<p:commandButton id="UserSubmit"
+							value="#{msg['profil.button.addUser']}" update="displayUsers"
+							style="margin-top:5px" />
 
 
+						<p:dialog modal="true" showEffect="fade" hideEffect="fade"
+							widgetVar="userDialog">
+							<h:panelGrid id="displayUsers" columns="2">
+								<h:outputText value="Source: " style="font-weight:bold" />
+								<ui:repeat value="#{ajouterProfilBean.usersOfProfil.source}"
+									var="item">
+									<h:outputText value="#{item}" style="margin-right:5px" />
+								</ui:repeat>
 
-				<p:growl id="msg1" showDetail="true" escape="false" />
-				<p:panel header="#{msg['profil.prop.users']} : *" style="margin-bottom:10px;">
-					<p:pickList id="pickList" value="#{ajouterProfilBean.usersOfProfil}"
-						var="users" itemLabel="#{users}" itemValue="#{users}">
-						<p:ajax event="transfer" listener="#{ajouterProfilBean.onTransfer}"
-							update="msg1" />
+								<h:outputText value="Target: " style="font-weight:bold" />
+								<ui:repeat value="#{ajouterProfilBean.usersOfProfil.target}"
+									var="item">
+									<h:outputText value="#{item}" style="margin-right:5px" />
+								</ui:repeat>
+							</h:panelGrid>
+						</p:dialog>
 
-					</p:pickList>
-					<p:commandButton id="UserSubmit" value="#{msg['profil.button.addUser']}"
-						update="displayUsers" 
-						style="margin-top:5px" />
-
-
-					<p:dialog modal="true" showEffect="fade" hideEffect="fade"
-						widgetVar="userDialog">
-						<h:panelGrid id="displayUsers" columns="2">
-							<h:outputText value="Source: " style="font-weight:bold" />
-							<ui:repeat value="#{ajouterProfilBean.usersOfProfil.source}" var="item">
-								<h:outputText value="#{item}" style="margin-right:5px" />
-							</ui:repeat>
-
-							<h:outputText value="Target: " style="font-weight:bold" />
-							<ui:repeat value="#{ajouterProfilBean.usersOfProfil.target}" var="item">
-								<h:outputText value="#{item}" style="margin-right:5px" />
-							</ui:repeat>
-						</h:panelGrid>
-					</p:dialog>
-
-				</p:panel>
+					</p:panel>
 
 
-				<p:panel header="#{msg['profil.list.Permission']}" style="margin-bottom:10px;">
+					<p:panel header="#{msg['profil.list.Permission']}"
+						style="margin-bottom:10px;">
 
-					<p:growl id="msg" showDetail="true" escape="false" />
+						<p:growl id="msg" showDetail="true" escape="false" />
 
-					<h3 style="margin-top: 0"></h3>
-					<h3 style="margin-top: 0"></h3>
-					<h3 style="margin-top: 0"></h3>
+						<h3 style="margin-top: 0"></h3>
+						<h3 style="margin-top: 0"></h3>
+						<h3 style="margin-top: 0"></h3>
 
-					<p:selectCheckboxMenu id="menu"
-						value="#{ajouterProfilBean.selectedPermissions}" label="#{msg['profil.list.Permission']}"
-						filter="true" filterMatchMode="startsWith"
-						panelStyle="width:250px">
-						<c:selectItems value="#{ajouterProfilBean.permissions}" />
-					</p:selectCheckboxMenu>
-					<p:commandLink value="#{msg['profil.button.addPermission']}" update="display" />
+						<p:selectCheckboxMenu id="menu"
+							value="#{ajouterProfilBean.selectedPermissions}"
+							label="#{msg['profil.list.Permission']}" filter="true"
+							filterMatchMode="startsWith" panelStyle="width:250px">
+							<c:selectItems value="#{ajouterProfilBean.permissions}" />
+						</p:selectCheckboxMenu>
+						<p:commandLink value="#{msg['profil.button.addPermission']}"
+							update="display" />
 
-					<p:outputPanel id="display"
-						style="width:250px;padding-left:5px;margin-top:10px">
-						<p:dataList value="#{ajouterProfilBean.selectedPermissions}" var="droit"
-							emptyMessage="#{msg['profil.button.PermissionDefault']}">
-            #{droit}
-        </p:dataList>
-					</p:outputPanel>
-				</p:panel>
-			</h:panelGrid>
-		</p:panel>
+						<p:outputPanel id="display"
+							style="width:250px;padding-left:5px;margin-top:10px">
+							<p:dataList value="#{ajouterProfilBean.selectedPermissions}"
+								var="droit"
+								emptyMessage="#{msg['profil.button.PermissionDefault']}">
+								<!-- DEBUG							 -->
+								<!--             #{droit} -->
+							</p:dataList>
+						</p:outputPanel>
+					</p:panel>
+				</h:panelGrid>
+			</p:panel>
 
 
-		<p:commandButton id="saveBtn" value="#{msg['profil.button.ajouterProfil']}"
-			icon="ui-icon-check" style="margin:0"
-			actionListener="#{ajouterProfilBean.save}" update="addForm" ajax="false">
-			<c:ajax render="@all" />
-		</p:commandButton>
-
-		<h:outputLink id="fade2" value="#">
-			<p:commandButton id="RetourBtn" action="Listeprofils" value="#{msg['profil.button.retour']}"
-				icon="ui-icon-arrowreturnthick-1-e">
+			<p:commandButton id="saveBtn"
+				value="#{msg['profil.button.ajouterProfil']}" icon="ui-icon-check"
+				style="margin:0" actionListener="#{ajouterProfilBean.save}"
+				update="addForm" ajax="false">
+				<c:ajax render="@all" />
 			</p:commandButton>
-		</h:outputLink>
-		<p:tooltip id="toolTipFade2" for="fade2" value="Retour"
-			position="top2" />
 
-		<h:outputLink id="fade3" value="#">
-			<p:commandButton id="closeBtn" action="index"
-				value="Quit" icon="ui-icon-close">
-			</p:commandButton>
-		</h:outputLink>
-		<p:tooltip id="toolTipFade3" for="fade3" value="Quit" position="top3" />
+			<h:outputLink id="fade2" value="#">
+				<p:commandButton id="RetourBtn" action="Listeprofils"
+					value="#{msg['profil.button.retour']}"
+					icon="ui-icon-arrowreturnthick-1-e">
+				</p:commandButton>
+			</h:outputLink>
+			<p:tooltip id="toolTipFade2" for="fade2" value="Retour"
+				position="top2" />
 
-	</h:form>
+			<h:outputLink id="fade3" value="#">
+				<p:commandButton id="closeBtn" action="index" value="Quit"
+					icon="ui-icon-close">
+				</p:commandButton>
+			</h:outputLink>
+			<p:tooltip id="toolTipFade3" for="fade3" value="Quit" position="top3" />
 
-
-
-
-
-
-</h:body>
-</html>
+		</h:form>
+	</ui:define>
+</ui:composition>

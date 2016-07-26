@@ -1,0 +1,275 @@
+/* body */
+.container{
+	position:relative;
+	text-align:center;
+	height: 100%;
+}
+
+.top {
+	position:absolute;
+    left:15px;
+}
+
+body {
+  background-color: rgb(256, 256, 256);
+  font: 1.45em "Trebuchet MS", sans-serif;
+		margin: 50px;
+}
+	
+body h1{
+ font: 2.25em "Trebuchet MS", sans-serif;
+}
+
+/*grid bootstrap*/
+
+/*tabset*/
+.row-fluid {
+	height: 60%;
+	}
+
+
+.row-centered {
+	height: 100%;
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
+
+/* You can also set a min-width, a max-width or a fixed width to the columns */
+
+.col-fixed {
+    /* custom width */
+    width:40px;
+}
+.col-min {
+    /* custom min width */
+    min-width:20px;
+}
+.col-max {
+    /* custom max width */
+    max-width:80px;
+}
+
+
+/*affichage du menu*/
+
+.starter-template-menu {
+	width:100%;
+ 	background-color: rgb(216, 216, 216);
+	}
+
+
+.starter-template-logo {
+	width: 100%;
+    max-width: 100%;
+    height: 200px;
+    background-color: #F8F8F8;
+/*     background-image:url("./sources/logo.jpg"); */
+    background-repeat:no-repeat;
+    background-position:right top;
+}
+
+/*affichage des images ou cartes*/
+
+
+.userservice {
+	position:relative;
+	width:50%;
+	height: 50%;
+	box-sizing:border-box;
+	margin:auto;
+	padding: 2% 2%;
+	text-align:center;
+}
+
+
+/*affichage de la vue*/
+
+.starter-template {
+	width: 100%;
+	}
+	
+/*boutons*/
+
+.btn{
+    position:relative;
+    left:5px;
+	}
+	
+.btn-default{
+    position:relative;
+    left:5px;
+	}
+
+.form-group{
+    position:relative;
+    left:5px;
+    width:100%;
+	}
+	
+.checkbox{
+    position:relative;
+    left:5px;
+	}
+
+.checkbox label{		
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1.6em;
+	margin:10px;
+}
+	
+.form-group label{		
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+}
+
+
+/* footer */
+
+.footer {
+	position:relative;
+	text-align:center;
+	width:100%;
+	height: 20%;
+}
+	
+.footer a {
+	text-decoration:none;
+	font-weight:normal;
+	color : #2e3436;
+	
+}
+
+.footer a:visited {
+  	text-decoration:none;
+	font-weight:normal;
+	color :#fff;
+}
+
+.footer a:hover {
+  	color:#fff;
+}
+
+.obligatoire {color: #d43f3a;}
+
+
+.btn select {
+    border: 1px solid gray;
+    height:38px;
+    max-width: 200px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    box-sizing: border-box;
+    color: rgb(96,96,96);
+    cursor: pointer;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #f3f3f3;
+    font-size: 1.45em "Trebuchet MS", sans-serif;
+    letter-spacing: normal;
+    line-height: 1.5;
+    padding: 5px 10px;
+    text-align: center;
+}
+    
+}
+
+input[disabled]{
+    background-color: #EEEEEE;
+    cursor: not-allowed;
+}
+
+a.error {
+		font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    	font-size: 16px;
+    	color: #d9534f;
+}
+
+text:btnBootstrap {
+	/*width:10%;*/
+}
+
+
+div.article
+{
+  float : left;
+  margin-bottom:20px;
+  width :100%;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding: 15px;
+  overflow:auto;
+  background:#9bd2ff;
+  color:#01749a;
+  font-size: 13px;
+  text-align: left;
+  text-decoration:none;
+}
+
+
+
+input.btn {
+    height:27px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    box-sizing: border-box;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #d9534f;
+    font-size: 12px;
+    letter-spacing: normal;
+    line-height: 1.5;
+    padding: 5px 10px;
+    text-align: center;
+}
+
+button.btn {
+    height:27px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    box-sizing: border-box;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #d9534f;
+    background-repeat: repeat-x;
+    background-image:
+    	linear-gradient (
+    	top,
+    	rgba(255, 255, 255,.75),
+    	rgba(255, 255, 255,0)
+    	);
+    font-size: 12px;
+    letter-spacing: normal;
+    text-transform: uppercase;
+    line-height: 1.5;
+    padding: 5px 10px;
+    text-align: center;
+}
+
+text:btnBootstrap {
+	/*width:10%;*/
+}
+
+button:nth-child(1){
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+
+button:nth-child(2){
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+
+/* div { */
+/* 	border-radius : 5px 5px; */
+/* 	-moz-border-radius : 5px 5px; */
+/* 	-webkit-border-radius: 5px 5px; */
+/* } */

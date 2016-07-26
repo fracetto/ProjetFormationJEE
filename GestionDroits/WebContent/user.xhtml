@@ -2,7 +2,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:c="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">	
+	xmlns:p="http://primefaces.org/ui">
 	<ui:define name="userContent">
 		<c:loadBundle var="msg" basename="messages"></c:loadBundle>
 		<h3>
@@ -30,7 +30,7 @@
 				<p:column>
 					<p:commandButton actionListener="#{userBean.deleteUser(user)}"
 						icon="ui-icon-trash">
-						<c:ajax render="@form" />
+						<c:ajax render="@all" />
 						<p:confirm header="Confirmation" message="Are you sure?"
 							icon="ui-icon-alert" />
 					</p:commandButton>
@@ -39,6 +39,7 @@
 							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
 						<p:commandButton value="No" type="button"
 							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							
 					</p:confirmDialog>
 
 					<p:commandButton id="updateBtn" action="afficherUser"
@@ -46,12 +47,6 @@
 						<c:setPropertyActionListener target="#{userBean.currentUser}"
 							value="#{user}" />
 					</p:commandButton>
-					<!-- 					value="#{msg['user.button.update']}" -->
-					<!-- 				<p:link id="afficherUser" outcome="afficherUser" -->
-					<!-- 					includeViewParams="true" value="Afficher"> -->
-					<!-- 					<c:param name="param" value="#{user.serialNbr}" /> -->
-
-					<!-- 				</p:link> -->
 				</p:column>
 			</p:dataTable>
 		</h:form>
@@ -60,7 +55,7 @@
 
 		<h:form id="addForm">
 			<p:accordionPanel>
-				<p:tab title="#{msg['user.ihm.accordpannel.title']}">
+				<p:tab title="#{msg['user.ihm.accordpannel.title']}" closable="true">
 					<p:messages id="user" style="margin-bottom:10px;" />
 					<h:panelGrid columns="3" cellpadding="5">
 						<h:outputLabel for="firstname"
@@ -84,11 +79,10 @@
 					</h:panelGrid>
 					<p:commandButton id="saveBtn" value="#{msg['user.button.create']}"
 						icon="ui-icon-check" style="margin:0"
-						actionListener="#{userBean.saveUser}" update="addForm"
+						actionListener="#{userBean.saveUser}" update="listForm"
 						ajax="false">
 						<c:ajax render="@all" />
 					</p:commandButton>
-
 				</p:tab>
 
 				<p:blockUI block="pnl" trigger="saveBtn" />

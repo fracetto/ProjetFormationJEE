@@ -8,17 +8,56 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<title>GestionDroits</title>
+	<link type="text/css" rel="stylesheet" href="sources/style.css" />
+	<link type="text/css" rel="stylesheet" href="sources/bootstrap.min.css" />
+
 </h:head>
 <h:body>
-	<ui:insert name="menu">
-		<ui:include src="menu.xhtml" />
-	</ui:insert>
-	<ui:insert name="userContent" id="userContent"> 
-			<!--  CONTENU EST INSERE ICI -->
-	</ui:insert>
-	<ui:insert name="userContentUpdate" id="userContentUpdate">
-			<!--  CONTENU EST INSERE ICI -->
-	</ui:insert>
+	<div class="container">
+		<div class="row row-centered">
 
+			<div class="col-xs-2 col-sm-2 col-md-2">
+				<div id="menu">
+					<ui:insert name="menu">
+						<ui:include src="menu.xhtml" />
+					</ui:insert>
+				</div>
+			</div>
+
+			<div class="col-xs-10 col-sm-10 col-md-10">
+				<div id="logo" class="starter-template-logo">
+					<h1>Gestion Droits</h1>
+				</div>
+			</div>
+
+			<div class="col-xs-12 col-sm-12 col-md-12">
+				<div id="content" class="starter-template">
+					<ui:insert name="userContent" id="userContent">
+						<!--  CONTENU EST INSERE ICI -->
+					</ui:insert>
+					<ui:insert name="userContentUpdate" id="userContentUpdate">
+						<!--  CONTENU EST INSERE ICI -->
+					</ui:insert>
+					<ui:insert name="userAjouterProfil" id="userContentUpdate">
+						<!--  CONTENU EST INSERE ICI -->
+					</ui:insert>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		<div class="row row-centered">
+			<div class="col-xs-12 col-sm-12 col-md-12">
+<!-- 				<p class="lead">Copyright © 2016 GestionDroits</p> -->
+			</div>
+		</div>
+		<!-- Footer -->
+	</div>
+	<!-- fin container -->
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="sources/jquery-2.1.4.min.js"></script>
+	<script src="sources/bootstrap.min.js"></script>
 </h:body>
 </html>

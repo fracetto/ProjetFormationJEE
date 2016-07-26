@@ -2,7 +2,6 @@ package beans;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -29,6 +28,7 @@ public class AjouterProfilBean {
 
     private List<String>                   selectedPermissions = new ArrayList<String>();
     private List<String>                   permissions         = new ArrayList<String>();
+    private List<String>                   users               = new ArrayList<String>();
 
     private Profil                         profil;
 
@@ -44,20 +44,31 @@ public class AjouterProfilBean {
 
     public AjouterProfilBean() {
         super();
-        this.profil = new Profil();
-    }
-
-    @PostConstruct
-    public void init() {
-
         this.context = new ClassPathXmlApplicationContext("application-context.xml");
         this.userServiceBean = (UserService) context.getBean("userService");
         this.profilServiceBean = (ProfilService) context.getBean("profilService");
         this.droitServiceBean = (DroitService) context.getBean("droitService");
+        this.profil = new Profil();
+    }
 
-        usersOfProfil = new DualListModel<String>(getAllUsers(), usersTarget);
-        permissions = getAllPermissions();
-
+    // @PostConstruct
+    // DEBUG append list actualize in default when Bean load after modification
+    public String init() {
+        if (users.isEmpty()) {
+            users = getAllUsers();
+            usersOfProfil = new DualListModel<String>(users, usersTarget);
+        } else {
+            users.clear();
+            users = getAllUsers();
+            usersOfProfil = new DualListModel<String>(users, usersTarget);
+        }
+        if (permissions.isEmpty()) {
+            permissions = getAllPermissions();
+        } else {
+            permissions.clear();
+            permissions = getAllPermissions();
+        }
+        return "ajouterProfil";
     }
 
     public List<String> getAllUsers() {

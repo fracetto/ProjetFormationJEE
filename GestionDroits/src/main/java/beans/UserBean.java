@@ -151,8 +151,8 @@ public class UserBean implements Serializable {
                     // Save user to the database
                     user = userServiceBean.save(user);
                     // method to save default Profile to User by User List : users
-                    List<User> users = this.setDefaultProfile(user);
-                    currentUser = users.remove(0);
+                    // List<User> users = this.setDefaultProfile(user);
+                    // currentUser = users.remove(0);
                     // message ihm
                     FacesMessage message = localizeMessage(SUCCESS);
                     FacesContext.getCurrentInstance().addMessage(null, message);
@@ -181,6 +181,7 @@ public class UserBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, message);
             LOG.info("Log : Unable to save user, user since register in database ");
         }
+        this.setCurrentUser(user);
         this.setUser(new User());
     }
 
@@ -191,7 +192,7 @@ public class UserBean implements Serializable {
      * @return
      * @throws DAOException
      */
-    public String deleteUser(User user) throws DAOException {
+    public void deleteUser(User user) throws DAOException {
         try {
             // delete user in database
             userServiceBean.delete(user.getSerialNbr());
@@ -205,7 +206,7 @@ public class UserBean implements Serializable {
             throw new DAOException(e.getMessage(), e.getCause());
         }
         this.setUser(new User());
-        return "index";
+        // return "user";
     }
 
     public String updateUser() throws DAOException {
@@ -235,7 +236,7 @@ public class UserBean implements Serializable {
                 return null;
             }
         }
-        return "index";
+        return "user";
     }
 
     public void setUser(User user) {
