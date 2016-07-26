@@ -35,7 +35,7 @@
 <!-- 	<category> ou <logger> -->
 <!-- DEBUG, INFO, WARNING, ERROR, FATAL -->
 <!-- 	additivity="false" permet de ne pas logger deux fois (si l'on stipule les apprender-ref)-->
-	<category name="fr.marseille.projetfinal" additivity="false">
+	<category name="fr.reactis" additivity="false">
 		<priority value="DEBUG" />
 		<appender-ref ref="CONSOLE" />
 		<!-- <appender-ref ref="FILE" /> -->

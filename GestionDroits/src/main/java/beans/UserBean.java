@@ -59,7 +59,6 @@ public class UserBean implements Serializable {
         this.context = new ClassPathXmlApplicationContext("application-context.xml");
         this.userServiceBean = (UserService) context.getBean("userService");
         this.user = new User();
-        // this.profilBean = new ProfilBean();
     }
 
     /**
@@ -85,19 +84,19 @@ public class UserBean implements Serializable {
                 message = new FacesMessage(FacesMessage.SEVERITY_INFO, MSG_FR_SUCCESS, null);
                 break;
             case F_NAME:
-                message = new FacesMessage(FacesMessage.SEVERITY_INFO, MSG_FR_F_NAME, null);
+                message = new FacesMessage(FacesMessage.SEVERITY_WARN, MSG_FR_F_NAME, null);
                 break;
             case L_NAME:
-                message = new FacesMessage(FacesMessage.SEVERITY_INFO, MSG_FR_L_NAME, null);
+                message = new FacesMessage(FacesMessage.SEVERITY_WARN, MSG_FR_L_NAME, null);
                 break;
             case EXIST:
-                message = new FacesMessage(FacesMessage.SEVERITY_INFO, MSG_FR_EXIST, null);
+                message = new FacesMessage(FacesMessage.SEVERITY_WARN, MSG_FR_EXIST, null);
                 break;
             case ERROR:
-                message = new FacesMessage(FacesMessage.SEVERITY_INFO, MSG_FR_ERROR, null);
+                message = new FacesMessage(FacesMessage.SEVERITY_ERROR, MSG_FR_ERROR, null);
                 break;
             default:
-                message = new FacesMessage(FacesMessage.SEVERITY_INFO, MSG_UNKNOWN, null);
+                message = new FacesMessage(FacesMessage.SEVERITY_ERROR, MSG_UNKNOWN, null);
                 break;
         }
 
@@ -111,19 +110,19 @@ public class UserBean implements Serializable {
                 message = new FacesMessage(FacesMessage.SEVERITY_INFO, MSG_EN_SUCCESS, null);
                 break;
             case F_NAME:
-                message = new FacesMessage(FacesMessage.SEVERITY_INFO, MSG_EN_F_NAME, null);
+                message = new FacesMessage(FacesMessage.SEVERITY_WARN, MSG_EN_F_NAME, null);
                 break;
             case L_NAME:
-                message = new FacesMessage(FacesMessage.SEVERITY_INFO, MSG_EN_L_NAME, null);
+                message = new FacesMessage(FacesMessage.SEVERITY_WARN, MSG_EN_L_NAME, null);
                 break;
             case EXIST:
-                message = new FacesMessage(FacesMessage.SEVERITY_INFO, MSG_EN_EXIST, null);
+                message = new FacesMessage(FacesMessage.SEVERITY_WARN, MSG_EN_EXIST, null);
                 break;
             case ERROR:
-                message = new FacesMessage(FacesMessage.SEVERITY_INFO, MSG_EN_ERROR, null);
+                message = new FacesMessage(FacesMessage.SEVERITY_ERROR, MSG_EN_ERROR, null);
                 break;
             default:
-                message = new FacesMessage(FacesMessage.SEVERITY_INFO, MSG_UNKNOWN, null);
+                message = new FacesMessage(FacesMessage.SEVERITY_ERROR, MSG_UNKNOWN, null);
                 break;
         }
         return message;

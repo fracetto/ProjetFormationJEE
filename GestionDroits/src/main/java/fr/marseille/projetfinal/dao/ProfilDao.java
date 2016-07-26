@@ -1,6 +1,7 @@
 package fr.marseille.projetfinal.dao;
 
 import java.util.List;
+import fr.marseille.projetfinal.model.Droit;
 import fr.marseille.projetfinal.model.Profil;
 import fr.marseille.projetfinal.model.User;
 
@@ -15,6 +16,8 @@ public interface ProfilDao {
     public List<Profil> findAll();
 
     public List<User> findAll(Integer id);
+
+    public List<Droit> findAllDroits(Integer id);
 
     public void delete(Integer id);
 

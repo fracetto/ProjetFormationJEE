@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Profiles List</title>
+</h:head>
+<h:body>
+	<c:loadBundle var="msg" basename="messages"></c:loadBundle>
+
+
+
+
+	<h:form id="UpdateProfilForm">
+		<p:growl id="growl" />
+		<h3 style="margin-top: 0">Added Profil - View</h3>
+		<p:panel id="pnl" header="New Profil" style="margin-bottom:10px;">
+			<p:messages id="user" />
+			<h:panelGrid columns="3" cellpadding="5">
+
+				<h:outputLabel for="name" value="#{msg['profil.prop.name']} : *" />
+				<p:inputText id="name" value="#{pickListView.profil.name}"
+					required="true" label="Name">
+				</p:inputText>
+				<p:message for="name" />
+
+				<h:outputLabel for="description"
+					value="#{msg['profil.prop.description']} : *" />
+				<p:inputText id="description"
+					value="#{pickListView.profil.description}" required="true"
+					label="Description" />
+				<p:message for="description" />
+
+
+
+				<p:growl id="msg1" showDetail="true" escape="false" />
+				<p:panel header="Users List" style="margin-bottom:10px;">
+					<p:pickList id="pickList" value="#{pickListView.cities}"
+						var="cities" itemLabel="#{cities}" itemValue="#{cities}">
+						<p:ajax event="transfer" listener="#{pickListView.onTransfer}"
+							update="msg1" />
+
+					</p:pickList>
+					<p:commandButton id="citySubmit" value="Added Users"
+						update="displayCities1" oncomplete="PF('cityDialog1').show()"
+						style="margin-top:5px" />
+
+
+					<p:dialog modal="true" showEffect="fade" hideEffect="fade"
+						widgetVar="cityDialog1">
+						<h:panelGrid id="displayCities1" columns="2">
+							<h:outputText value="Source: " style="font-weight:bold" />
+							<ui:repeat value="#{pickListView.cities.source}" var="item">
+								<h:outputText value="#{item}" style="margin-right:5px" />
+							</ui:repeat>
+
+							<h:outputText value="Target: " style="font-weight:bold" />
+							<ui:repeat value="#{pickListView.cities.target}" var="item">
+								<h:outputText value="#{item}" style="margin-right:5px" />
+							</ui:repeat>
+						</h:panelGrid>
+					</p:dialog>
+
+				</p:panel>
+
+
+				<p:panel header="Permissions List" style="margin-bottom:10px;">
+
+					<p:growl id="msg" showDetail="true" escape="false" />
+
+					<h3 style="margin-top: 0"></h3>
+					<h3 style="margin-top: 0"></h3>
+					<h3 style="margin-top: 0"></h3>
+
+					<p:selectCheckboxMenu id="menu"
+						value="#{pickListView.selectedPermissions}" label="permissions"
+						filter="true" filterMatchMode="startsWith"
+						panelStyle="width:250px">
+						<c:selectItems value="#{pickListView.permissions}" />
+					</p:selectCheckboxMenu>
+					<p:commandLink value="addes permissions" update="display" />
+
+					<p:outputPanel id="display"
+						style="width:250px;padding-left:5px;margin-top:10px">
+						<p:dataList value="#{pickListView.selectedPermissions}" var="city"
+							emptyMessage="No permissions selected">
+            #{city}
+        </p:dataList>
+					</p:outputPanel>
+				</p:panel>
+			</h:panelGrid>
+		</p:panel>
+
+
+		<p:commandButton id="saveBtn" value="Ajouter Profil"
+			icon="ui-icon-check" style="margin:0"
+			actionListener="#{pickListView.save}" update="addForm" ajax="false">
+			<c:ajax render="@all" />
+		</p:commandButton>
+
+		<h:outputLink id="fade2" value="#">
+			<p:commandButton id="RetourBtn" action="Listeprofils" value="Retour"
+				icon="ui-icon-arrowreturnthick-1-e">
+			</p:commandButton>
+		</h:outputLink>
+		<p:tooltip id="toolTipFade2" for="fade2" value="Retour"
+			position="top2" />
+
+		<h:outputLink id="fade3" value="#">
+			<p:commandButton id="closeBtn" url="http://www.google.fr"
+				value="Quit" icon="ui-icon-close">
+			</p:commandButton>
+		</h:outputLink>
+		<p:tooltip id="toolTipFade3" for="fade3" value="Quit" position="top3" />
+
+	</h:form>
+
+
+
+
+
+
+</h:body>
+</html>

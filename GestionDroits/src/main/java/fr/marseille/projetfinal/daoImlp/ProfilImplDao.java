@@ -7,12 +7,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import org.springframework.stereotype.Repository;
 import fr.marseille.projetfinal.dao.ProfilDao;
+import fr.marseille.projetfinal.model.Droit;
 import fr.marseille.projetfinal.model.Profil;
 import fr.marseille.projetfinal.model.User;
-
-/**
- * TODO The ProfilImplDao class must declare a constant String GestionDroits
- */
 
 @Repository
 public class ProfilImplDao implements ProfilDao {
@@ -70,6 +67,7 @@ public class ProfilImplDao implements ProfilDao {
         return profils;
     }
 
+    @Override
     public List<User> findAll(Integer id) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("GestionDroits");
         EntityManager entityMng = entityManagerFactory.createEntityManager();
@@ -78,14 +76,25 @@ public class ProfilImplDao implements ProfilDao {
         Profil profil = entityMng.find(Profil.class, id);
 
         users = profil.getUsers();
-        // TODO suppress loop System.out
-        for (User user : users) {
-            System.out.println("Name USer " + user.getFirstName());
-        }
         entityMng.close();
         entityManagerFactory.close();
 
         return users;
+    }
+
+    @Override
+    public List<Droit> findAllDroits(Integer id) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("GestionDroits");
+        EntityManager entityMng = entityManagerFactory.createEntityManager();
+
+        List<Droit> droits = new ArrayList<>();
+        Profil profil = entityMng.find(Profil.class, id);
+
+        droits = profil.getDroits();
+        entityMng.close();
+        entityManagerFactory.close();
+
+        return droits;
     }
 
     @Override
@@ -101,8 +110,8 @@ public class ProfilImplDao implements ProfilDao {
             profil1.setId(profil.getId());
             profil1.setName(profil.getName());
             profil1.setDescription(profil.getDescription());
-            profil1.setDroits(null);
-            profil1.setUsers(null);
+            profil1.setDroits(profil.getDroits());
+            profil1.setUsers(profil.getUsers());
         }
         entityMng.merge(profil1);
         entityMng.getTransaction().commit();
@@ -113,10 +122,8 @@ public class ProfilImplDao implements ProfilDao {
     public void delete(Integer id) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("GestionDroits");
         EntityManager entityMng = entityManagerFactory.createEntityManager();
-        // supprimer les éléments dea ltable des personnes
         entityMng.getTransaction().begin();
         Profil profil = entityMng.find(Profil.class, id);
-        System.out.println("j'apdate !!!! ");
         if (null != profil) {
             entityMng.remove(profil);
         }
