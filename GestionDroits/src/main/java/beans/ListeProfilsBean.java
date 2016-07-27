@@ -100,6 +100,20 @@ public class ListeProfilsBean {
         return profilServiceBean.update(profil);
     }
 
+    public String findImage(Profil profil) {
+        if ((profil.getName()).equalsIgnoreCase("Administrateur") || (profil.getName()).equalsIgnoreCase("Admin")) {
+            return "Administrateur.png";
+        }
+        if ((profil.getName()).equalsIgnoreCase("Utilisateur") || (profil.getName()).equalsIgnoreCase("user")) {
+            return "user.png";
+        }
+        if ((profil.getName()).equalsIgnoreCase("Super Utilisateur")
+                || (profil.getName()).equalsIgnoreCase("Super user")) {
+            return "superuser.jpg";
+        }
+        return "user.png";
+    }
+
     public List<String> findAllUser(Profil profil) {
         users = new ArrayList<>();
         List<User> utilisateurs = new ArrayList<User>();
