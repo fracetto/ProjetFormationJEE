@@ -32,5 +32,10 @@
 			<from-outcome>afficherUser</from-outcome>
 			<to-view-id>/afficherUser.xhtml</to-view-id>
 		</navigation-case>
+		<navigation-case>
+			<from-outcome>listeProfils</from-outcome>
+<!-- 			<to-view-id>/listeProfils_static.xhtml</to-view-id> -->
+<to-view-id>/listeProfils.xhtml</to-view-id>
+		</navigation-case>
 </navigation-rule>
 </faces-config>

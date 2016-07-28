@@ -5,7 +5,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
@@ -18,10 +18,11 @@ import fr.marseille.projetfinal.service.ProfilService;
 import fr.marseille.projetfinal.service.UserService;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class ListeProfilsBean {
     private List<String>                   permissions;
     private List<String>                   users;
+    private List<Droit>                    droits;
     Integer                                profilId;
     Profil                                 profil;
     private ClassPathXmlApplicationContext context;
@@ -31,27 +32,23 @@ public class ListeProfilsBean {
 
     public ListeProfilsBean() {
         super();
-
-    }
-
-    @PostConstruct
-    public void init() {
         this.context = new ClassPathXmlApplicationContext("application-context.xml");
         this.profilServiceBean = (ProfilService) context.getBean("profilService");
         this.userServiceBean = (UserService) context.getBean("userService");
         this.droitServiceBean = (DroitService) context.getBean("droitService");
+        this.profil = new Profil();
+    }
+
+    @PostConstruct
+    public void init() {
         permissions = new ArrayList<String>();
-        List<Droit> droits = new ArrayList<Droit>();
-
-        Profil profil = new Profil();
-
         droits = droitServiceBean.findAll();
         String str;
         for (Droit droit : droits) {
             str = droit.getId() + " " + droit.getLabeel();
             permissions.add(str);
         }
-
+        // return "listeProfils";
     }
 
     public Integer getProfilId() {
@@ -141,9 +138,7 @@ public class ListeProfilsBean {
 
     public void onRowEdit(RowEditEvent event) {
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO + "Edit Changed " + profilId);
-
         FacesContext.getCurrentInstance().addMessage(null, msg);
-
     }
 
     public void onRowCancel(RowEditEvent event) {

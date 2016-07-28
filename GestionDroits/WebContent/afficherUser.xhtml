@@ -5,11 +5,7 @@
 	xmlns:p="http://primefaces.org/ui">
 	<ui:define name="userContentUpdate">
 	<c:loadBundle var="msg" basename="messages"></c:loadBundle>
-
-	<!-- dataTable necessary to show profiles -->
-	<!-- here modified rowKey by profile id / profile name ? -->
-
-<h3 style="margin-top: 0"><h:outputText id="UpdateUserTitle" value="#{msg['user.ihm.form.title']}"/>
+	<h3 style="margin-top: 0"><h:outputText id="UpdateUserTitle" value="#{msg['user.ihm.form.title']} : "/>
 			<h:outputLabel id="serialNbr"
 				value="#{userBean.currentUser.serialNbr}" />
 		</h3>
@@ -43,19 +39,11 @@
 			<p:panelGrid columns="1" cellpadding="5">
 				<p:dataTable id="tableProfil" var="profil"
 					value="#{userBean.findAllProfiles(userBean.currentUser)}">
-					<p:column style="width:16px">
-						<p:rowToggler />
-					</p:column>
 					<p:column headerText="Id">
 						<h:outputText value="#{profil.id}" />
 					</p:column>
 					<p:column headerText="Profil Name">
 						<h:outputText value="#{profil.name}" />
-					</p:column>
-
-					<p:column style="width:32px">
-						<p:rowEditor />
-
 					</p:column>
 				</p:dataTable>
 			</p:panelGrid>

@@ -1,171 +1,164 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition template="index.xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:c="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>Profiles List</title>
-</h:head>
-<h:body>
-<c:loadBundle var="msg" basename="messages"></c:loadBundle>
+	<ui:define name="profilsList">
+		<c:loadBundle var="msg" basename="messages"></c:loadBundle>
 
-	<h:form id="form">
-		<p:growl id="msgs" showDetail="true" />
-		<p:panel id="pnl" header="#{msg['profil.header.liste']}"  style="margin-bottom:10px;">
+		<h:form id="form">
+			<p:growl id="msgs" showDetail="true" />
+			<p:panel id="pnl" header="#{msg['profil.header.liste']}"
+				style="margin-bottom:10px;">
 
-			<h:panelGrid columns="1" cellpadding="50">
-				<h:column>
-					<p:dataTable id="profilTable" var="profil"
-						value="#{listeProfilsBean.findAll()}" editable="true"
-						style="margin-bottom:20px">
-						<c:facet name="header">
+				<h:panelGrid columns="1" cellpadding="50">
+					<h:column>
+						<p:dataTable id="profilTable" var="profil"
+							value="#{listeProfilsBean.findAll()}" editable="true"
+							style="margin-bottom:20px">
+							<c:facet name="header">
 
-						</c:facet>
+							</c:facet>
 
 
 
-						<p:column style="width:2%">
-						<h:outputLink id="fade3" value="#">
-					</h:outputLink>
-						<p:rowToggler />
-									<p:tooltip id="toolTipFade3" for="fade3" value="#{msg['profil.button.details']}"
-										position="top3" />
-						
-						
-						</p:column>
-						<p:ajax event="rowEdit" listener="#{listeProfilsBean.onRowEdit}"
-							update=":form:msgs" />
-						<p:ajax event="rowEditCancel"
-							listener="#{listeProfilsBean.onRowCancel}" update=":form:msgs" />
-
-						<p:column headerText="#{msg['profil.prop.id']}" style="width:5%">
-							<p:cellEditor id="ceId">
-								<c:facet name="output">
-									<h:outputText value="#{profil.id}" />
-								</c:facet>
-								<c:facet name="input">
-									<p:inputText id="modelInput"
-										value="#{listeProfilsBean.profilId}" style="width:100%"
-										ajax="false" update=":form:profilTable" />
-
-								</c:facet>
-							</p:cellEditor>
-						</p:column>
-
-						<p:column headerText="#{msg['profil.prop.name']}" style="width:10%">
-							<p:cellEditor>
-								<c:facet name="output">
-									<h:outputText value="#{profil.name}" />
-								</c:facet>
-								<c:facet name="input">
-									<p:inputText value="#{profil.name}" style="width:100%"
-										label="profil.name" />
-								</c:facet>
-							</p:cellEditor>
-						</p:column>
-
-						<p:column headerText="#{msg['profil.prop.description']}" style="width:20%">
-							<p:cellEditor>
-								<c:facet name="output">
-									<h:outputText value="#{profil.description}" />
-								</c:facet>
-								<c:facet name="input">
-									<p:inputText value="#{profil.description}" style="width:100%"
-										label="profil.name" />
-								</c:facet>
-							</p:cellEditor>
-						</p:column>
+							<p:column style="width:2%">
+								<h:outputLink id="fade3" value="#">
+								</h:outputLink>
+								<p:rowToggler />
+								<p:tooltip id="toolTipFade3" for="fade3"
+									value="#{msg['profil.button.details']}" position="top3" />
 
 
+							</p:column>
+							<p:ajax event="rowEdit" listener="#{listeProfilsBean.onRowEdit}"
+								update=":form:msgs" />
+							<p:ajax event="rowEditCancel"
+								listener="#{listeProfilsBean.onRowCancel}" update=":form:msgs" />
 
-								<p:column style="width:5%">
-									<p:growl id="message" showDetail="true" />
+							<p:column headerText="#{msg['profil.prop.id']}" style="width:5%">
+								<p:cellEditor id="ceId">
+									<c:facet name="output">
+										<h:outputText value="#{profil.id}" />
+									</c:facet>
+									<c:facet name="input">
+										<p:inputText id="modelInput"
+											value="#{listeProfilsBean.profilId}" style="width:100%"
+											ajax="false" update=":form:profilTable" />
 
-									<h:outputLink id="fade2" value="#">
+									</c:facet>
+								</p:cellEditor>
+							</p:column>
 
+							<p:column headerText="#{msg['profil.prop.name']}"
+								style="width:10%">
+								<p:cellEditor>
+									<c:facet name="output">
+										<h:outputText value="#{profil.name}" />
+									</c:facet>
+									<c:facet name="input">
+										<p:inputText value="#{profil.name}" style="width:100%"
+											label="profil.name" />
+									</c:facet>
+								</p:cellEditor>
+							</p:column>
 
-										<p:commandButton id="updateBtn" action="updateProfil"
-											icon="ui-icon-pencil" includeViewParams="true">
-											<c:setPropertyActionListener
-												target="#{profilModifierBean.currentProfil}"
-												value="#{profil}" />
-											<c:setPropertyActionListener
-												target="#{profilModifierBean.currentDroits}"
-												value="#{profil.droits}" />
-											<!-- 									<c:param name="param" value="#{profil.id}" /> -->
-										</p:commandButton>
-									</h:outputLink>
-									<p:tooltip id="toolTipFade2" for="fade2" value="#{msg['profil.button.update']}"
-										position="top2" />
+							<p:column headerText="#{msg['profil.prop.description']}"
+								style="width:20%">
+								<p:cellEditor>
+									<c:facet name="output">
+										<h:outputText value="#{profil.description}" />
+									</c:facet>
+									<c:facet name="input">
+										<p:inputText value="#{profil.description}" style="width:100%"
+											label="profil.name" />
+									</c:facet>
+								</p:cellEditor>
+							</p:column>
 
 
 
-									<h:outputLink id="fade" value="#">
-										<p:commandButton
-											actionListener="#{listeProfilsBean.delete(profil)}"
-											update="message" modal="true" icon="ui-icon-trash">
-											<p:confirm header="Confirmation" message="Are you sure?"
-												icon="ui-icon-alert" update="tableProfil" ajax="false" />
-											<c:ajax render="@all" />
-										</p:commandButton>
-									</h:outputLink>
-									<p:tooltip id="toolTipFade" for="fade" value="#{msg['profil.button.supp']}"
-										position="top" />
+							<p:column style="width:5%">
+								<p:growl id="message" showDetail="true" />
 
-									<p:confirmDialog global="true" showEffect="fade"
-										hideEffect="fade">
-										<p:commandButton value="Yes" type="button"
-											styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-										<p:commandButton value="No" type="button"
-											styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-									</p:confirmDialog>
-								</p:column>
-								<p:rowExpansion>
-									
+								<h:outputLink id="fade2" value="#">
 
 
-									<h:panelGrid columns="2" cellpadding="5">
-																<c:facet name="header">
-																	<p:graphicImage value="#{listeProfilsBean.findImage(profil)}" />																		
-																</c:facet>
-<!-- value="Administrateur.png" -->
-										<p:outputLabel for="console" value="#{msg['profil.prop.users']}" />
-										<p:selectOneMenu id="console" value="users"
-											style="width:200px">
-											<c:selectItems
-												value="#{listeProfilsBean.findAllUser(profil)}" />
-										</p:selectOneMenu>
+									<p:commandButton id="updateBtn" action="updateProfil"
+										icon="ui-icon-pencil" includeViewParams="true">
+										<c:setPropertyActionListener
+											target="#{modifierProfilBean.currentProfil}"
+											value="#{profil}" />
+										<c:setPropertyActionListener
+											target="#{modifierProfilBean.currentDroits}"
+											value="#{profil.droits}" />
+									</p:commandButton>
+								</h:outputLink>
+								<p:tooltip id="toolTipFade2" for="fade2"
+									value="#{msg['profil.button.update']}" position="top2" />
 
 
 
-										<p:outputLabel for="console" value="#{msg['profil.prop.droits']}" />
-										<p:selectOneMenu id="console2" value="droits"
-											style="width:200px">
-											<c:selectItems
-												value="#{listeProfilsBean.findAllDroits(profil)}" />
-										</p:selectOneMenu>
+								<h:outputLink id="fade" value="#">
+									<p:commandButton
+										actionListener="#{listeProfilsBean.delete(profil)}"
+										icon="ui-icon-trash">
+										<p:confirm header="Confirmation" message="Are you sure?"
+											icon="ui-icon-alert" update="profilTable" ajax="false" />
+										<c:ajax render="@all" />
+									</p:commandButton>
+								</h:outputLink>
+								<p:tooltip id="toolTipFade" for="fade"
+									value="#{msg['profil.button.supp']}" position="top" />
 
-									</h:panelGrid>
-								</p:rowExpansion>
-					</p:dataTable>
+								<p:confirmDialog global="true" showEffect="fade"
+									hideEffect="fade">
+									<p:commandButton value="Yes" type="button"
+										styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+									<p:commandButton value="No" type="button"
+										styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+								</p:confirmDialog>
+							</p:column>
+							<p:rowExpansion>
 
 
 
-				</h:column>
-			</h:panelGrid>
-		</p:panel>
+								<h:panelGrid columns="2" cellpadding="5">
+									<c:facet name="header">
+										<p:graphicImage value="#{listeProfilsBean.findImage(profil)}" />
+									</c:facet>
+									<p:outputLabel for="console"
+										value="#{msg['profil.prop.users']}" />
+									<p:selectOneMenu id="console" value="users" style="width:200px">
+										<c:selectItems value="#{listeProfilsBean.findAllUser(profil)}" />
+									</p:selectOneMenu>
 
 
-		<p:commandButton id="ajouterBtn" action="ajouterProfil"
-			icon="ui-icon-disk" value="#{msg['profil.title.add']}">
 
-		</p:commandButton>
+									<p:outputLabel for="console"
+										value="#{msg['profil.prop.droits']}" />
+									<p:selectOneMenu id="console2" value="droits"
+										style="width:200px">
+										<c:selectItems
+											value="#{listeProfilsBean.findAllDroits(profil)}" />
+									</p:selectOneMenu>
+
+								</h:panelGrid>
+							</p:rowExpansion>
+						</p:dataTable>
 
 
-	</h:form>
 
-</h:body>
-</html>
+					</h:column>
+				</h:panelGrid>
+			</p:panel>
+
+
+			<p:commandButton id="ajouterBtn" action="#{ajouterProfilBean.init()}"
+				icon="ui-icon-disk" value="#{msg['profil.title.add']}">
+
+			</p:commandButton>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

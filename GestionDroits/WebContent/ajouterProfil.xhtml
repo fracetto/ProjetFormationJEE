@@ -3,7 +3,7 @@
 	xmlns:c="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-	<ui:define name="userAjouterProfil">
+	<ui:define name="userContentUpdate">
 		<c:loadBundle var="msg" basename="messages"></c:loadBundle>
 		<h:form id="AjouterProfilForm">
 			<p:growl id="growl" />
@@ -14,7 +14,7 @@
 			<p:panel id="pnl" header="#{msg['profil.header.add']}"
 				style="margin-bottom:10px;">
 				<p:messages id="user" />
-				<h:panelGrid columns="3" cellpadding="5">
+				<p:panelGrid columns="3" cellpadding="5">
 
 					<h:outputLabel for="name" value="#{msg['profil.prop.name']} : *" />
 					<p:inputText id="name" value="#{ajouterProfilBean.profil.name}"
@@ -34,7 +34,7 @@
 					<p:growl id="msg1" showDetail="true" escape="false" />
 					<p:panel header="#{msg['profil.prop.users']} : *"
 						style="margin-bottom:10px;">
-						<p:pickList id="pickList"
+						<p:pickList id="pickList" widgetVar="pickListVar"
 							value="#{ajouterProfilBean.usersOfProfil}" var="users"
 							itemLabel="#{users}" itemValue="#{users}">
 							<p:ajax event="transfer"
@@ -94,7 +94,7 @@
 							</p:dataList>
 						</p:outputPanel>
 					</p:panel>
-				</h:panelGrid>
+				</p:panelGrid>
 			</p:panel>
 
 
@@ -105,22 +105,20 @@
 				<c:ajax render="@all" />
 			</p:commandButton>
 
-			<h:outputLink id="fade2" value="#">
-				<p:commandButton id="RetourBtn" action="Listeprofils"
-					value="#{msg['profil.button.retour']}"
-					icon="ui-icon-arrowreturnthick-1-e">
-				</p:commandButton>
-			</h:outputLink>
-			<p:tooltip id="toolTipFade2" for="fade2" value="Retour"
-				position="top2" />
+<!-- 			<h:outputLink id="fade2" value="#"> -->
+<!-- 				<p:commandButton id="RetourBtn" action="Listeprofils" -->
+<!-- 					value="#{msg['profil.button.retour']}" -->
+<!-- 					icon="ui-icon-arrowreturnthick-1-e"> -->
+<!-- 				</p:commandButton> -->
+<!-- 			</h:outputLink> -->
+<!-- 			<p:tooltip id="toolTipFade2" for="fade2" value="Retour" -->
+<!-- 				position="top2" /> -->
 
-			<h:outputLink id="fade3" value="#">
-				<p:commandButton id="closeBtn" action="index" value="Quit"
-					icon="ui-icon-close">
-				</p:commandButton>
-			</h:outputLink>
-			<p:tooltip id="toolTipFade3" for="fade3" value="Quit" position="top3" />
-
+<!-- 			<h:outputLink id="fade3" value="#"> -->
+<!-- 				<p:commandButton id="closeBtn" action="index" value="Quit" -->
+<!-- 					icon="ui-icon-close"> -->
+<!-- 				</p:commandButton> -->
+<!-- 			</h:outputLink> -->
 		</h:form>
 	</ui:define>
 </ui:composition>

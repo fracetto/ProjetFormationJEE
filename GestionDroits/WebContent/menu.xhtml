@@ -2,30 +2,30 @@
 	xmlns:c="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-	<c:view locale="#{localeBean.locale}">
-	<h:form>
-		<h3>Navigation Menu</h3>
-		<p:menu style="width:120px">
-			<p:menuitem value="User List" id="listeUser" outcome="user" />
-			<p:separator />
-			<p:menuitem value="Add Profile" id="AddProfile"
-				 action="#{ajouterProfilBean.init()}"/><!-- DEBUG -->
-			<p:separator />
-			<p:menuitem value="Profile List" id="ProfileList" outcome="index" />
-		</p:menu>
-	</h:form>
+	<c:loadBundle var="msg" basename="messages"></c:loadBundle>
 	<div id="menuContent" class="top">
 			<!--  MON MENU  -->
-
+		<h:form>
+			<p:menu style="width:120px">
+				<p:menuitem value="#{msg['profil.button.nav.userView']}" id="listeUser" outcome="user" />
+				<p:separator />
+				<p:menuitem value="#{msg['profil.button.ajouterProfil']}" id="AddProfile"
+					action="#{ajouterProfilBean.init()}" />
+				<p:separator />
+<!-- 				<p:menuitem value="#{msg['profil.button.List']}" id="ProfileList" -->
+<!-- 					action="#{listeProfilsBean}" /> -->
+				<p:menuitem value="#{msg['profil.button.List']}" id="ProfileList" outcome="listeProfils" />
+			</p:menu>
+		</h:form>
 			<h:form>
-				<h:selectOneMenu value="#{localeBean.language}" onchange="submit()"  style="width:120px">
+				<h:selectOneMenu value="#{localeBean.language}" onchange="submit()"
+					style="width:120px">
 					<c:selectItem itemValue="en" itemLabel="English" />
 					<c:selectItem itemValue="fr" itemLabel="French" />
 				</h:selectOneMenu>
 			</h:form>
 
 		</div>
-		</c:view>
 </ui:composition>
 
 

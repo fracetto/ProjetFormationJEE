@@ -54,7 +54,7 @@
 
 
 		<h:form id="addForm">
-			<p:accordionPanel>
+			<p:accordionPanel dynamic="true" cache="true">
 				<p:tab title="#{msg['user.ihm.accordpannel.title']}" closable="true">
 					<p:messages id="user" style="margin-bottom:10px;" />
 					<h:panelGrid columns="3" cellpadding="5">
@@ -78,7 +78,7 @@
 						<p:message for="comment" />
 					</h:panelGrid>
 					<p:commandButton id="saveBtn" value="#{msg['user.button.create']}"
-						icon="ui-icon-check" style="margin:0"
+						icon="ui-icon-check" style="align:left"
 						actionListener="#{userBean.saveUser}" update="listForm"
 						ajax="false">
 						<c:ajax render="@all" />
