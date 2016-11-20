@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,12 +107,18 @@ public class ProfilImplDao implements ProfilDao {
 
     public void delete(Integer id) {
 
-	Session session = sessionFactory.getCurrentSession();
-	Profil profil = (Profil) session.get(Profil.class, id);
+//	Session session = sessionFactory.getCurrentSession();
+//	Profil profil = (Profil) session.get(Profil.class, id);
+//
+//        if (null != profil) {
+//            session.delete(profil);
+//        }
+        
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("delete from Profil where id=:id)");
 
-        if (null != profil) {
-            session.delete(profil);
-        }
+        query.setParameter("id", id);
+        query.executeUpdate();
     }
 
 }

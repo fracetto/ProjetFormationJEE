@@ -61,7 +61,6 @@ public class UserBean implements Serializable {
     @Autowired
     private UserService userServiceBean;
     
-
     @ManagedProperty(value = "#{localeBean}")
     private LocaleBean                     localeBean;
     
@@ -70,18 +69,13 @@ public class UserBean implements Serializable {
     private String comment;
 
     //TODO profilBean est inutile dans cette classe
-    @ManagedProperty(value = "#{profilBean}")//@Autowired
-    private ProfilBean                     profilBean;
+    //    @ManagedProperty(value = "#{profilBean}")//@Autowired
+    //    private ProfilBean                     profilBean;
 
     
     public UserBean() {
         super();
         this.user = new User();
-//        this.user = new User(0,null,lastName,firstName,comment);
-//        user.setFirstName(firstName);
-//        user.setLastName(lastName);
-//        user.setComment(comment);
-//        user.setSerialNbr(0);
     }
 
     public String getLastName() {
@@ -177,12 +171,11 @@ public class UserBean implements Serializable {
 
     private FacesMessage localizeMessage(String messageLevel) {
 	FacesMessage message = null;
-	if(((new Locale("fr").getLanguage())).equals(localeBean.getLanguage())) {
-        //if ("fr".equals(localeBean.getLanguage())) {
-            message = getFrMessage(messageLevel);
-        } else if(((new Locale("en").getLanguage())).equals(localeBean.getLanguage())) {
+//        if ("fr".equals(localeBean.getLanguage())) {
+//            message = getFrMessage(messageLevel);
+//        } else if(((new Locale("en").getLanguage())).equals(localeBean.getLanguage())) {
             message = getEnMessage(messageLevel);
-        }
+//        }
         return message;
     }
 
@@ -204,7 +197,7 @@ public class UserBean implements Serializable {
 //                   currentUser = users.remove(0);
                    // message ihm
                       /*  DEBUG  Spring */ FacesMessage message = localizeMessage(SUCCESS);
-                      /*  DEBUG  Spring */  FacesContext.getCurrentInstance().addMessage(null, message);
+                      /*  DEBUG  Spring */ FacesContext.getCurrentInstance().addMessage(null, message);
                    // log
                    LOG.info("Log : Save User  : " + user.getFirstName());
                } catch (Exception e) {
@@ -249,8 +242,8 @@ public class UserBean implements Serializable {
              */
             userServiceBean.delete(user.getSerialNbr());
             // message ihm
-//            FacesMessage message = localizeMessage(SUCCESS);
-//            FacesContext.getCurrentInstance().addMessage(null, message);
+            FacesMessage message = localizeMessage(SUCCESS);
+            FacesContext.getCurrentInstance().addMessage(null, message);
             // log
             LOG.info("Log : user deleted " + user.getSerialNbr());
         } catch (Exception e) {
@@ -270,8 +263,8 @@ public class UserBean implements Serializable {
                  * modif spring DEBUG
                  */
                 currentUser = userServiceBean.update(currentUser);
-//                FacesMessage message = localizeMessage(SUCCESS);
-//                FacesContext.getCurrentInstance().addMessage(null, message);
+                FacesMessage message = localizeMessage(SUCCESS);
+                FacesContext.getCurrentInstance().addMessage(null, message);
                 LOG.debug("Log update User  : " + user.getSerialNbr());
             } catch (Exception e) {
                 FacesMessage message = localizeMessage(ERROR);
@@ -322,13 +315,13 @@ public class UserBean implements Serializable {
         this.localeBean = localebean;
     }
 
-    public ProfilBean getProfilBean() {
-        return profilBean;
-    }
+//    public ProfilBean getProfilBean() {
+//        return profilBean;
+//    }
 
-    public void setProfilBean(ProfilBean profilBean) {
-        this.profilBean = profilBean;
-    }
+//    public void setProfilBean(ProfilBean profilBean) {
+//        this.profilBean = profilBean;
+//    }
 
     public List<Profil> getProfiles() {
         return profiles;

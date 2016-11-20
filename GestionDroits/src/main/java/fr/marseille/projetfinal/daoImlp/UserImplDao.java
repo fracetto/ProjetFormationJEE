@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,12 +89,20 @@ public class UserImplDao implements UserDao {
     public void delete(Integer id) {
 	
 	// supprimer les éléments dea ltable des personnes
+//	Session session = sessionFactory.getCurrentSession();
+//	User user = (User) session.get(User.class, id);
+//
+//	if (null != user) {
+//	    session.delete(user);
+//	}
+	
 	Session session = sessionFactory.getCurrentSession();
-	User user = (User) session.get(User.class, id);
+        Query query = session.createQuery("delete from User where id=:id)");
 
-	if (null != user) {
-	    session.delete(user);
-	}
+        query.setParameter("id", id);
+        query.executeUpdate();
+	
+	
     }
 
 }
