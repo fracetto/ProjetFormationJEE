@@ -15,8 +15,12 @@ import javax.persistence.ManyToMany;
  * The Class Profil.
  */
 @Entity
-
 public class Profil implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -2807505030896618379L;
 
     /** The id. */
     @Id
@@ -61,7 +65,7 @@ public class Profil implements Serializable {
         this.name = name;
         this.description = description;
         this.users = users;
-        this.droits = droits;
+//        this.droits = droits;
     }
 
     public List<User> getUsers() {

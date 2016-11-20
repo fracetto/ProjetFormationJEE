@@ -1,10 +1,13 @@
-package beans;
+package fr.marseille.projetfinal.beans;
 
 import java.util.Locale;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+
+import org.springframework.stereotype.Component;
 
 @ManagedBean
 @SessionScoped
@@ -14,11 +17,12 @@ public class LocaleBean {
 
     @PostConstruct
     public void init() {
-        locale = FacesContext.getCurrentInstance().getExternalContext().getRequestLocale();
+        this.locale = FacesContext.getCurrentInstance().getExternalContext().getRequestLocale();
     }
 
     public LocaleBean() {
         // TODO Auto-generated constructor stub
+	super();
     }
 
     public Locale getLocale() {

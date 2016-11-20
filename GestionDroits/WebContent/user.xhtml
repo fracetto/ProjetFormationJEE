@@ -29,7 +29,7 @@
 				</p:column>
 				<p:column>
 					<p:commandButton actionListener="#{userBean.deleteUser(user)}"
-						icon="ui-icon-trash">
+						icon="ui-icon-trash" update="listForm">
 						<c:ajax render="@all" />
 						<p:confirm header="Confirmation" message="Are you sure?"
 							icon="ui-icon-alert" />

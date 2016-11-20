@@ -1,10 +1,12 @@
-package beans;
+package fr.marseille.projetfinal.beans;
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import fr.marseille.projetfinal.model.Profil;
 import fr.marseille.projetfinal.model.User;
@@ -18,13 +20,12 @@ public class ProfilBean {
     private Integer                        profilId;
     private Profil                         profil;
     private Profil                         profilDefault;
-    private ClassPathXmlApplicationContext context;
+    
+    @Autowired
     private ProfilService                  profilServiceBean;
 
     public ProfilBean() {
         super();
-        this.context = new ClassPathXmlApplicationContext("application-context.xml");
-        this.profilServiceBean = (ProfilService) context.getBean("profilService");
         this.profilDefault = new Profil();
     }
 
@@ -32,7 +33,7 @@ public class ProfilBean {
     public void init() {
         profilDefault.setName("USER_TEST");
         profilDefault.setDescription("Utilisateur lambda de l'application");
-        profilDefault.setDroits(null);
+//        profilDefault.setDroits(null);
     }
 
     public Profil save(Profil profil) {

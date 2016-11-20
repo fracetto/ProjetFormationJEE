@@ -11,9 +11,9 @@ public class FactoryDao {
     private static ProfilDao            profil;
     private static UserDao              user;
     private static DroitDao             droit;
-
-    private static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("GestionDroits");
-    private static EntityManager        entityMng;
+//
+//    private static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("GestionDroits");
+//    private static EntityManager        entityMng;
 
     public static UserDao getUserDao() {
         if (user == null) {
@@ -40,12 +40,12 @@ public class FactoryDao {
         }
 
     }
-
-    public static EntityManager getEntityManager() {
-        if (entityMng == null) {
-            return entityManagerFactory.createEntityManager();
-        } else {
-            return entityMng;
-        }
-    }
+//
+//    public static EntityManager getEntityManager() {
+//        if (entityMng == null) {
+//            return entityManagerFactory.createEntityManager();
+//        } else {
+//            return entityMng;
+//        }
+//    }
 }

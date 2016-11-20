@@ -1,4 +1,4 @@
-package beans;
+package fr.marseille.projetfinal.beans;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,10 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
+
 import fr.marseille.projetfinal.model.Droit;
 import fr.marseille.projetfinal.model.Profil;
 import fr.marseille.projetfinal.model.User;
@@ -17,6 +20,7 @@ import fr.marseille.projetfinal.service.DroitService;
 import fr.marseille.projetfinal.service.ProfilService;
 import fr.marseille.projetfinal.service.UserService;
 
+@Component
 @ManagedBean
 @SessionScoped
 public class ListeProfilsBean {
@@ -25,21 +29,22 @@ public class ListeProfilsBean {
     private List<Droit>                    droits;
     Integer                                profilId;
     Profil                                 profil;
-    private ClassPathXmlApplicationContext context;
+    
+    @Autowired
     private ProfilService                  profilServiceBean;
-    private UserService                    userServiceBean;
+    
+//    @Autowired
+//    private UserService                    userServiceBean;
+    
+    @Autowired    
     private DroitService                   droitServiceBean;
 
     public ListeProfilsBean() {
         super();
-        this.context = new ClassPathXmlApplicationContext("application-context.xml");
-        this.profilServiceBean = (ProfilService) context.getBean("profilService");
-        this.userServiceBean = (UserService) context.getBean("userService");
-        this.droitServiceBean = (DroitService) context.getBean("droitService");
         this.profil = new Profil();
     }
 
-    @PostConstruct
+//    @PostConstruct
     public void init() {
         permissions = new ArrayList<String>();
         droits = droitServiceBean.findAll();
@@ -48,7 +53,7 @@ public class ListeProfilsBean {
             str = droit.getId() + " " + droit.getLabeel();
             permissions.add(str);
         }
-        // return "listeProfils";
+//         return "listeProfils";
     }
 
     public Integer getProfilId() {
@@ -129,6 +134,7 @@ public class ListeProfilsBean {
         List<Droit> droits = new ArrayList<Droit>();
         droits = profilServiceBean.findAllDroits(profil.getId());
         String str;
+        if (droits!=null && droits.size()!=0)
         for (Droit droit : droits) {
             str = droit.getId() + " " + droit.getLabeel();
             permissions.add(str);

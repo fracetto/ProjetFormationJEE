@@ -17,9 +17,6 @@ import javax.persistence.ManyToMany;
 @Entity
 public class User implements Serializable {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
 
     public User(Integer serialNbr, List<Profil> profiles, String lastName, String firstName, String comment) {

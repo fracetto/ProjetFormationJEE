@@ -1,6 +1,7 @@
-package beans;
+package fr.marseille.projetfinal.beans;
 
 import java.util.ArrayList;
+import javax.annotation.PostConstruct;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -10,7 +11,9 @@ import org.primefaces.event.SelectEvent;
 import org.primefaces.event.TransferEvent;
 import org.primefaces.event.UnselectEvent;
 import org.primefaces.model.DualListModel;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import fr.marseille.projetfinal.exception.DAOException;
 import fr.marseille.projetfinal.exception.UIExceptBean;
 import fr.marseille.projetfinal.model.Droit;
@@ -20,6 +23,7 @@ import fr.marseille.projetfinal.service.DroitService;
 import fr.marseille.projetfinal.service.ProfilService;
 import fr.marseille.projetfinal.service.UserService;
 
+@Component
 @ManagedBean
 @SessionScoped
 public class AjouterProfilBean {
@@ -32,9 +36,13 @@ public class AjouterProfilBean {
 
     private Profil                         profil;
 
-    private ClassPathXmlApplicationContext context;
+    @Autowired    
     private UserService                    userServiceBean;
+    
+    @Autowired
     private ProfilService                  profilServiceBean;
+    
+    @Autowired
     private DroitService                   droitServiceBean;
 
     List<String>                           usersSource         = new ArrayList<String>();
@@ -44,14 +52,10 @@ public class AjouterProfilBean {
 
     public AjouterProfilBean() {
         super();
-        this.context = new ClassPathXmlApplicationContext("application-context.xml");
-        this.userServiceBean = (UserService) context.getBean("userService");
-        this.profilServiceBean = (ProfilService) context.getBean("profilService");
-        this.droitServiceBean = (DroitService) context.getBean("droitService");
         this.profil = new Profil();
     }
 
-    // @PostConstruct
+//   @PostConstruct
     // DEBUG append list actualize in default when Bean load after modification
     public String init() {
         if (users.isEmpty()) {
@@ -72,10 +76,10 @@ public class AjouterProfilBean {
     }
 
     public List<String> getAllUsers() {
-        List<User> users = new ArrayList<User>();
-        users = userServiceBean.findAll();
+        List<User> usersObj = new ArrayList<User>();
+        usersObj = userServiceBean.findAll();
         String str;
-        for (User user : users) {
+        for (User user : usersObj) {
             str = user.getSerialNbr() + " " + user.getFirstName() + " " + user.getLastName();
             usersSource.add(str);
         }

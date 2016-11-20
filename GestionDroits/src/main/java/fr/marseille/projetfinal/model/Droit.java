@@ -20,7 +20,10 @@ public class Droit implements Serializable {
     Integer id;
 
     private String labeel;
-
+    
+    @ManyToMany(mappedBy = "droits", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Profil> profiles = new ArrayList<>();
+    
     public Integer getId() {
         return id;
     }
@@ -48,8 +51,7 @@ public class Droit implements Serializable {
         this.profiles = profils;
     }
 
-    @ManyToMany(mappedBy = "droits", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Profil> profiles = new ArrayList<>();
+
 
     public List<Profil> getProfiles() {
         return profiles;

@@ -5,6 +5,7 @@ import fr.marseille.projetfinal.model.Profil;
 import fr.marseille.projetfinal.model.User;
 
 public interface UserDao {
+    
     public User save(User user);
 
     public List<User> save(List<User> users);

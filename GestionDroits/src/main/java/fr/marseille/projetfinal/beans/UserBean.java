@@ -1,26 +1,37 @@
-package beans;
+package fr.marseille.projetfinal.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
+
 import fr.marseille.projetfinal.exception.DAOException;
 import fr.marseille.projetfinal.model.Profil;
 import fr.marseille.projetfinal.model.User;
 import fr.marseille.projetfinal.service.UserService;
 
+@Component
 @ManagedBean
 @SessionScoped
 public class UserBean implements Serializable {
 
     /**
      * Author Franck
+     * 
+     * TODO mettre les variables MSG dans une classe ConstantesJSP
+     * Singleton ? pour y acceder dans plusieurs Bean
+     * 
      */
 
     private static final Logger            LOG              = Logger.getLogger(UserBean.class);
@@ -38,27 +49,63 @@ public class UserBean implements Serializable {
     private static final String            EXIST            = "exist";
     private static final String            MSG_EN_ERROR     = "Error : DB !";
     private static final String            MSG_FR_ERROR     = "Erreur : BD !";
+    private static final String		MSG_FR_ERROR_APPLI 	= "Erreur application !";
     private static final String            ERROR            = "error";
     private static final String            MSG_UNKNOWN      = "Error unknown !";
     private static final long              serialVersionUID = 1L;
     private User                           user;
-    private ClassPathXmlApplicationContext context;
-    private UserService                    userServiceBean;
     private static final String            NULLSTR          = "";
     private User                           currentUser;
     private List<Profil>                   profiles;
 
-    @ManagedProperty(value = "#{localeBean}")
-    private LocaleBean                     localebean;
+    @Autowired
+    private UserService userServiceBean;
+    
 
-    @ManagedProperty(value = "#{profilBean}")
+    @ManagedProperty(value = "#{localeBean}")
+    private LocaleBean                     localeBean;
+    
+    private String lastName;
+    private String firstName;
+    private String comment;
+
+    //TODO profilBean est inutile dans cette classe
+    @ManagedProperty(value = "#{profilBean}")//@Autowired
     private ProfilBean                     profilBean;
 
+    
     public UserBean() {
         super();
-        this.context = new ClassPathXmlApplicationContext("application-context.xml");
-        this.userServiceBean = (UserService) context.getBean("userService");
         this.user = new User();
+//        this.user = new User(0,null,lastName,firstName,comment);
+//        user.setFirstName(firstName);
+//        user.setLastName(lastName);
+//        user.setComment(comment);
+//        user.setSerialNbr(0);
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     /**
@@ -129,61 +176,63 @@ public class UserBean implements Serializable {
     }
 
     private FacesMessage localizeMessage(String messageLevel) {
-        FacesMessage message = null;
-        if (localebean.getLanguage() == "fr") {
+	FacesMessage message = null;
+	if(((new Locale("fr").getLanguage())).equals(localeBean.getLanguage())) {
+        //if ("fr".equals(localeBean.getLanguage())) {
             message = getFrMessage(messageLevel);
-        } else if (localebean.getLanguage() == "en") {
+        } else if(((new Locale("en").getLanguage())).equals(localeBean.getLanguage())) {
             message = getEnMessage(messageLevel);
         }
         return message;
     }
 
-    /**
-     * method to create a new user after validate him like new one
-     * 
-     * @throws DAOException
-     */
-    public void saveUser() throws DAOException {
+   /*
+    *  method to create a new user after validate him like new one
+    * 
+    * @throws DAOException
+    */
+    
+   public void saveUser() throws DAOException {
 
-        if ((currentUser == null) || (currentUser != null && !comparedProperties())) {
-            if (!NULLSTR.equals(user.getFirstName()) & !NULLSTR.equals(user.getLastName())) {
-                try {
-                    // Save user to the database
-                    user = userServiceBean.save(user);
-                    // method to save default Profile to User by User List : users
-                    // List<User> users = this.setDefaultProfile(user);
-                    // currentUser = users.remove(0);
-                    // message ihm
-                    FacesMessage message = localizeMessage(SUCCESS);
-                    FacesContext.getCurrentInstance().addMessage(null, message);
-                    // log
-                    LOG.info("Log : Save User  : " + user.getFirstName());
-                } catch (Exception e) {
-                    // log
-                    LOG.debug("Log : Fail save User  : " + user.getFirstName() + ", error context : " + e);
-                    // throw exception
-                    throw new DAOException(e.getMessage(), e.getCause());
-                }
-            } else {
-                if (NULLSTR.equals(user.getFirstName())) {
-                    FacesMessage message = localizeMessage(F_NAME);
-                    FacesContext.getCurrentInstance().addMessage(null, message);
-                    LOG.debug("Log : Firstname is empty");
-                }
-                if (NULLSTR.equals(user.getLastName())) {
-                    FacesMessage message = localizeMessage(L_NAME);
-                    FacesContext.getCurrentInstance().addMessage(null, message);
-                    LOG.debug("Log : Lastname is empty");
-                }
-            }
-        } else {
-            FacesMessage message = localizeMessage(EXIST);
-            FacesContext.getCurrentInstance().addMessage(null, message);
-            LOG.info("Log : Unable to save user, user since register in database ");
-        }
-        this.setCurrentUser(user);
-        this.setUser(new User());
-    }
+       if ((currentUser == null) || (currentUser != null && !comparedProperties())) {
+           if (!NULLSTR.equals(user.getFirstName()) & !NULLSTR.equals(user.getLastName())) {
+               try {
+                   // Save user to the database
+                   user = userServiceBean.save(user);
+                   // method to save default Profile to User by User List : users
+//                   List<User> users = this.setDefaultProfile(user);
+//                   currentUser = users.remove(0);
+                   // message ihm
+                      /*  DEBUG  Spring */ FacesMessage message = localizeMessage(SUCCESS);
+                      /*  DEBUG  Spring */  FacesContext.getCurrentInstance().addMessage(null, message);
+                   // log
+                   LOG.info("Log : Save User  : " + user.getFirstName());
+               } catch (Exception e) {
+                   // log
+                   LOG.debug("Log : Fail save User  : " + user.getFirstName() + ", error context : " + e);
+                   // throw exception
+                   throw new DAOException(e.getMessage(), e.getCause());
+               }
+           } else {
+               if (NULLSTR.equals(user.getFirstName())) {
+                   FacesMessage message = localizeMessage(F_NAME);
+                   FacesContext.getCurrentInstance().addMessage(null, message);
+                   LOG.debug("Log : Firstname is empty");
+               }
+               if (NULLSTR.equals(user.getLastName())) {
+                   FacesMessage message = localizeMessage(L_NAME);
+                   FacesContext.getCurrentInstance().addMessage(null, message);
+                   LOG.debug("Log : Lastname is empty");
+               }
+           }
+       } else {
+           FacesMessage message = localizeMessage(EXIST);
+           FacesContext.getCurrentInstance().addMessage(null, message);
+           LOG.info("Log : Unable to save user, user since register in database ");
+       }
+       this.setCurrentUser(user);
+       this.setUser(new User());
+   }
 
     /**
      * Method to delete the user given in parameter
@@ -195,10 +244,13 @@ public class UserBean implements Serializable {
     public void deleteUser(User user) throws DAOException {
         try {
             // delete user in database
+            /**
+             * modif spring DEBUG
+             */
             userServiceBean.delete(user.getSerialNbr());
             // message ihm
-            FacesMessage message = localizeMessage(SUCCESS);
-            FacesContext.getCurrentInstance().addMessage(null, message);
+//            FacesMessage message = localizeMessage(SUCCESS);
+//            FacesContext.getCurrentInstance().addMessage(null, message);
             // log
             LOG.info("Log : user deleted " + user.getSerialNbr());
         } catch (Exception e) {
@@ -214,9 +266,12 @@ public class UserBean implements Serializable {
         // message ihm
         if (!NULLSTR.equals(currentUser.getFirstName()) & !NULLSTR.equals(currentUser.getLastName())) {
             try {
+        	/**
+                 * modif spring DEBUG
+                 */
                 currentUser = userServiceBean.update(currentUser);
-                FacesMessage message = localizeMessage(SUCCESS);
-                FacesContext.getCurrentInstance().addMessage(null, message);
+//                FacesMessage message = localizeMessage(SUCCESS);
+//                FacesContext.getCurrentInstance().addMessage(null, message);
                 LOG.debug("Log update User  : " + user.getSerialNbr());
             } catch (Exception e) {
                 FacesMessage message = localizeMessage(ERROR);
@@ -260,11 +315,11 @@ public class UserBean implements Serializable {
     }
 
     public LocaleBean getLocalebean() {
-        return localebean;
+        return localeBean;
     }
 
     public void setLocalebean(LocaleBean localebean) {
-        this.localebean = localebean;
+        this.localeBean = localebean;
     }
 
     public ProfilBean getProfilBean() {
@@ -283,19 +338,22 @@ public class UserBean implements Serializable {
         this.profiles = profiles;
     }
 
-    private List<User> setDefaultProfile(User user) {
-        Profil defProfil = profilBean.getProfilDefault();
-        List<User> users = new ArrayList<>();
-        users.add(user);
-        defProfil.setUsers(users);
-        defProfil = profilBean.save(defProfil);
-        this.setProfiles(profiles);
-        return users;
-    }
+//    private List<User> setDefaultProfile(User user) {
+//        Profil defProfil = profilBean.getProfilDefault();
+//        List<User> users = new ArrayList<>();
+//        users.add(user);
+//        defProfil.setUsers(users);
+//        defProfil = profilBean.save(defProfil);
+//        this.setProfiles(profiles);
+//        return users;
+//    }
 
     public List<Profil> findAllProfiles(User userTemp) {
         List<Profil> findAll = new ArrayList<>();
         if (userTemp != null) {
+            /**
+             * modif spring DEBUG
+             */
             findAll = userServiceBean.findAll(userTemp.getSerialNbr());
             return findAll;
         } else

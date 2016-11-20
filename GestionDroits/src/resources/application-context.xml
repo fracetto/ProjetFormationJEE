@@ -26,7 +26,7 @@
 		class="org.springframework.jdbc.datasource.SingleConnectionDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="username" value="root" />
-		<property name="password" value="dada" />
+		<property name="password" value="cff1504" />
 		<property name="url" value="jdbc:mysql://localhost:3306/projetfinal" />
 	</bean>
 

@@ -1,4 +1,4 @@
-package beans;
+package fr.marseille.projetfinal.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,7 +11,10 @@ import org.primefaces.event.SelectEvent;
 import org.primefaces.event.TransferEvent;
 import org.primefaces.event.UnselectEvent;
 import org.primefaces.model.DualListModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
+
 import fr.marseille.projetfinal.exception.DAOException;
 import fr.marseille.projetfinal.exception.UIExceptBean;
 import fr.marseille.projetfinal.model.Droit;
@@ -21,22 +24,27 @@ import fr.marseille.projetfinal.service.DroitService;
 import fr.marseille.projetfinal.service.ProfilService;
 import fr.marseille.projetfinal.service.UserService;
 
+@Component
 @ManagedBean
 @SessionScoped
 public class ModifierProfilBean implements Serializable {
 
     private DualListModel<String>          usersOfProfil = new DualListModel<String>();
-    private List<String>                   selectedPermissions;
-    private List<String>                   permissions;
+    private List<String>                   selectedPermissions = null;
+    private List<String>                   permissions = null;
 
     // Liste et currentProfil backup de la vue liste de profil
     private Profil                         currentProfil;
     private List<Droit>                    currentDroits;
     // fin
-
-    private ClassPathXmlApplicationContext context;
+    
+    @Autowired
     private UserService                    userServiceBean;
+    
+    @Autowired
     private ProfilService                  profilServiceBean;
+    
+    @Autowired
     private DroitService                   droitServiceBean;
 
     private final String                   NULL_STR      = "";
@@ -51,13 +59,10 @@ public class ModifierProfilBean implements Serializable {
     // @PostConstruct
     public void init() {
         if (null != currentProfil.getId()) {
-            this.context = new ClassPathXmlApplicationContext("application-context.xml");
-            this.userServiceBean = (UserService) context.getBean("userService");
-            this.profilServiceBean = (ProfilService) context.getBean("profilService");
-            this.droitServiceBean = (DroitService) context.getBean("droitService");
+            
 
-            // List<Droit> droitsCurrentProfil = currentProfil.getDroits();
-            // List<User> usersCurrentProfil = currentProfil.getUsers();
+             List<Droit> droitsCurrentProfil = currentProfil.getDroits();
+             List<User> usersCurrentProfil = currentProfil.getUsers();
 
             selectedPermissions = new ArrayList<>();
             this.selectedPermissions = getCurrentPermissions();
@@ -128,10 +133,11 @@ public class ModifierProfilBean implements Serializable {
 
     public List<String> getCurrentPermissions() {
         List<Droit> currentpermissions = new ArrayList<Droit>();
+        //DEBUG 
         currentpermissions = profilServiceBean.findAllDroits(currentProfil.getId());
 
         String str = null;
-        if (!currentpermissions.isEmpty()) {
+        if (currentpermissions!=null && !currentpermissions.isEmpty()) {
             for (Droit droit : currentpermissions) {
                 str = droit.getId() + " " + droit.getLabeel();
                 selectedPermissions.add(str);

@@ -5,6 +5,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import fr.marseille.projetfinal.dao.ProfilDao;
 import fr.marseille.projetfinal.model.Droit;
@@ -13,6 +17,13 @@ import fr.marseille.projetfinal.model.User;
 
 @Repository
 public class ProfilImplDao implements ProfilDao {
+    
+    @Autowired
+    private SessionFactory sessionFactory;
+
+    public void setSessionFactory(SessionFactory sf) {
+	this.sessionFactory = sf;
+    }
 
     public ProfilImplDao() {
         super();
@@ -21,15 +32,9 @@ public class ProfilImplDao implements ProfilDao {
     @Override
     public Profil save(Profil profil) {
 
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("GestionDroits");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+	Session session = sessionFactory.getCurrentSession();
+	session.persist(profil);
 
-        entityManager.getTransaction().begin();
-        entityManager.persist(profil);
-
-        entityManager.getTransaction().commit();
-        entityManager.close();
-        entityManagerFactory.close();
         return profil;
     }
 
@@ -43,10 +48,9 @@ public class ProfilImplDao implements ProfilDao {
 
     @Override
     public Profil find(Integer id) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("GestionDroits");
-        EntityManager entityMng = entityManagerFactory.createEntityManager();
         Profil profil = new Profil();
-        profil = entityMng.find(Profil.class, id);
+        Session session = sessionFactory.getCurrentSession();
+        profil = (Profil) session.get(Profil.class, id);
         if (profil.getUsers() != null) {
             System.out.println("Présence de " + profil.getUsers().size() + " utilisateur(s) : ");
         }
@@ -54,92 +58,60 @@ public class ProfilImplDao implements ProfilDao {
             System.out.println("Présence de " + profil.getDroits().size() + " droits(s) : ");
         }
 
-        entityMng.close();
-        entityManagerFactory.close();
-
         return profil;
     }
 
     @Override
     public List<Profil> findAll() {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("GestionDroits");
-        EntityManager entityMng = entityManagerFactory.createEntityManager();
         List<Profil> profils = new ArrayList<>();
-        profils = entityMng.createQuery("from Profil").getResultList();
-
-        entityMng.close();
-        entityManagerFactory.close();
+        Session session = sessionFactory.getCurrentSession();
+        profils = session.createQuery("from Profil").list();
 
         return profils;
     }
 
     @Override
     public List<User> findAll(Integer id) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("GestionDroits");
-        EntityManager entityMng = entityManagerFactory.createEntityManager();
-
-        Profil profil = entityMng.find(Profil.class, id);
+	Profil profil = new Profil();
+        Session session = sessionFactory.getCurrentSession();
+        profil = (Profil) session.get(Profil.class, id);
 
         if (profil.getUsers() != null) {
             System.out.println("Présence de " + profil.getUsers().size() + " utilisateur(s) : ");
         }
-        entityMng.close();
-        entityManagerFactory.close();
-
         return profil.getUsers();
     }
 
     @Override
     public List<Droit> findAllDroits(Integer id) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("GestionDroits");
-        EntityManager entityMng = entityManagerFactory.createEntityManager();
-
+        Session session = sessionFactory.getCurrentSession();
         List<Droit> droits = new ArrayList<>();
-        Profil profil = entityMng.find(Profil.class, id);
+        Profil profil =(Profil) session.get(Profil.class, id);
 
         if (profil.getDroits() != null) {
             System.out.println("Présence de " + profil.getDroits().size() + " droit(s) : ");
         }
-
-        entityMng.close();
-        entityManagerFactory.close();
 
         return profil.getDroits();
     }
 
     @Override
     public Profil update(Profil profil) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("GestionDroits");
-        EntityManager entityMng = entityManagerFactory.createEntityManager();
 
-        // debut de la transaction
-        entityMng.getTransaction().begin();
-        Profil profil1 = entityMng.find(Profil.class, profil.getId());
-
-        if (null != profil1) {
-            profil1.setId(profil.getId());
-            profil1.setName(profil.getName());
-            profil1.setDescription(profil.getDescription());
-            profil1.setDroits(profil.getDroits());
-            profil1.setUsers(profil.getUsers());
-        }
-        entityMng.merge(profil1);
-        entityMng.getTransaction().commit();
-        entityMng.close();
-        return profil1;
+        Session session = sessionFactory.getCurrentSession();
+        session.merge(profil);
+        session.flush();
+        return profil;
     }
 
     public void delete(Integer id) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("GestionDroits");
-        EntityManager entityMng = entityManagerFactory.createEntityManager();
-        entityMng.getTransaction().begin();
-        Profil profil = entityMng.find(Profil.class, id);
+
+	Session session = sessionFactory.getCurrentSession();
+	Profil profil = (Profil) session.get(Profil.class, id);
+
         if (null != profil) {
-            entityMng.remove(profil);
+            session.delete(profil);
         }
-        entityMng.getTransaction().commit();
-        entityMng.close();
-        entityManagerFactory.close();
     }
 
 }

@@ -1,4 +1,4 @@
-package beans;
+package fr.marseille.projetfinal.beans;
 
 import java.util.ArrayList;
 import java.util.List;

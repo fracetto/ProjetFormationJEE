@@ -1,4 +1,4 @@
-package beans;
+package fr.marseille.projetfinal.beans;
 
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
