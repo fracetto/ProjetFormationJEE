@@ -42,7 +42,7 @@
 							
 					</p:confirmDialog>
 
-					<p:commandButton id="updateBtn" action="afficherUser"
+					<p:commandButton id="updateBtn" action="afficherUser?faces-redirect=true"
 						icon="ui-icon-pencil">
 						<c:setPropertyActionListener target="#{userBean.currentUser}"
 							value="#{user}" />

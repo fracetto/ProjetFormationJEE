@@ -61,8 +61,8 @@ public class AfficherUserBean {
          */
         
         if (!str.isEmpty()) {
-            user = userServiceBean.findAll().get(0);/*DEBUG Spring*/
-//            user = userServiceBean.find(Integer.parseInt(str));
+//            user = userServiceBean.findAll().get(0);/*DEBUG Spring*/
+            user = userServiceBean.find(Integer.parseInt(str));
             return user;
         }
         return null;

@@ -55,7 +55,7 @@ public class AjouterProfilBean {
         this.profil = new Profil();
     }
 
-//   @PostConstruct
+    @PostConstruct
     // DEBUG append list actualize in default when Bean load after modification
     public String init() {
         if (users.isEmpty()) {

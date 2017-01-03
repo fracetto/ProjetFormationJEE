@@ -84,8 +84,8 @@
 								<h:outputLink id="fade2" value="#">
 
 
-									<p:commandButton id="updateBtn" action="updateProfil"
-										icon="ui-icon-pencil" includeViewParams="true">
+									<p:commandButton id="updateBtn" action="updateProfil?faces-redirect=true"
+										icon="ui-icon-pencil">
 										<c:setPropertyActionListener
 											target="#{modifierProfilBean.currentProfil}"
 											value="#{profil}" />
@@ -152,12 +152,17 @@
 					</h:column>
 				</h:panelGrid>
 			</p:panel>
-
-
-			<p:commandButton id="ajouterBtn" action="#{ajouterProfilBean.init()}"
+			
+			
+<!-- 			<p:commandButton id="ajouterBtn" action="#{ajouterProfilBean.init()}" -->
+			<p:commandButton id="ajouterBtn" action="ajouterProfil?faces-redirect=true"
 				icon="ui-icon-disk" value="#{msg['profil.title.add']}">
-
 			</p:commandButton>
+<!-- 				<c:metadata> -->
+<!-- 					<c:viewAction action="#{ajouterProfilBean.init()}"></c:viewAction> -->
+<!-- 				</c:metadata> -->
+				
+			
 
 		</h:form>
 	</ui:define>
