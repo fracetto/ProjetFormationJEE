@@ -11,30 +11,25 @@
 			<p:panel id="pnl" header="#{msg['profil.header.liste']}"
 				style="margin-bottom:10px;">
 
-				<h:panelGrid columns="1" cellpadding="50">
-					<h:column>
+<!-- 				<h:panelGrid columns="1" cellpadding="50"> -->
+<!-- 					<h:column> -->
 						<p:dataTable id="profilTable" var="profil"
-							value="#{listeProfilsBean.findAll()}" editable="true"
+							value="#{listeProfilsBean.findAll()}" editable="true" 
 							style="margin-bottom:20px">
-							<c:facet name="header">
-
-							</c:facet>
-
-
-
-							<p:column style="width:2%">
-								<h:outputLink id="fade3" value="#">
-								</h:outputLink>
-								<p:rowToggler />
-								<p:tooltip id="toolTipFade3" for="fade3"
-									value="#{msg['profil.button.details']}" position="top3" />
-
-
-							</p:column>
 							<p:ajax event="rowEdit" listener="#{listeProfilsBean.onRowEdit}"
 								update=":form:msgs" />
 							<p:ajax event="rowEditCancel"
 								listener="#{listeProfilsBean.onRowCancel}" update=":form:msgs" />
+							<c:facet name="header">
+
+							</c:facet>
+							<p:column style="width:2%" exportable="false">
+								<h:outputLink id="fade3" value="#">
+								</h:outputLink>
+								<p:rowToggler />
+<!-- 								<p:tooltip id="toolTipFade3" for="fade3" -->
+<!-- 									value="#{msg['profil.button.details']}" position="top3" /> -->
+							</p:column>
 
 							<p:column headerText="#{msg['profil.prop.id']}" style="width:5%">
 								<p:cellEditor id="ceId">
@@ -94,8 +89,8 @@
 											value="#{profil.droits}" />
 									</p:commandButton>
 								</h:outputLink>
-								<p:tooltip id="toolTipFade2" for="fade2"
-									value="#{msg['profil.button.update']}" position="top2" />
+<!-- 								<p:tooltip id="toolTipFade2" for="fade2" -->
+<!-- 									value="#{msg['profil.button.update']}" position="top2" /> -->
 
 
 
@@ -119,38 +114,33 @@
 										styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 								</p:confirmDialog>
 							</p:column>
-							<p:rowExpansion>
-
-
-
-								<h:panelGrid columns="2" cellpadding="5">
+					
+					
+							<p:rowExpansion id="profilDetail">
+								<p:panelGrid columns="2" cellpadding="5">
 									<c:facet name="header">
-										<p:graphicImage value="#{listeProfilsBean.findImage(profil)}" />
+										<p:graphicImage value="#{listeProfilsBean.findImage(profil)}" id="imgP"/>
 									</c:facet>
 									<p:outputLabel for="console"
 										value="#{msg['profil.prop.users']}" />
 									<p:selectOneMenu id="console" value="users" style="width:200px">
 										<c:selectItems value="#{listeProfilsBean.findAllUser(profil)}" />
 									</p:selectOneMenu>
-
-
-
-									<p:outputLabel for="console"
+									<p:outputLabel for="console2"
 										value="#{msg['profil.prop.droits']}" />
 									<p:selectOneMenu id="console2" value="droits"
 										style="width:200px">
 										<c:selectItems
 											value="#{listeProfilsBean.findAllDroits(profil)}" />
 									</p:selectOneMenu>
-
-								</h:panelGrid>
+								</p:panelGrid>
 							</p:rowExpansion>
-						</p:dataTable>
 
 
+					</p:dataTable>
 
-					</h:column>
-				</h:panelGrid>
+<!-- 					</h:column> -->
+<!-- 				</h:panelGrid> -->
 			</p:panel>
 			
 			

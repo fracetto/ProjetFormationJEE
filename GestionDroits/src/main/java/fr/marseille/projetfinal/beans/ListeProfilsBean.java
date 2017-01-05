@@ -7,6 +7,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+
+import org.apache.log4j.Logger;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +41,15 @@ public class ListeProfilsBean {
     @Autowired    
     private DroitService                   droitServiceBean;
 
+    private static Logger log = Logger
+			.getLogger(ListeProfilsBean.class);
+    
     public ListeProfilsBean() {
         super();
         this.profil = new Profil();
     }
 
-//    @PostConstruct
+//   @PostConstruct
     public void init() {
         permissions = new ArrayList<String>();
         droits = droitServiceBean.findAll();
@@ -107,12 +112,15 @@ public class ListeProfilsBean {
             return "Administrateur.png";
         }
         if ((profil.getName()).equalsIgnoreCase("Utilisateur") || (profil.getName()).equalsIgnoreCase("user")) {
-            return "user.png";
+        	log.debug("findImage User " + profil.getName());
+        	return "user.png";
         }
         if ((profil.getName()).equalsIgnoreCase("Super Utilisateur")
                 || (profil.getName()).equalsIgnoreCase("Super user")) {
+        	log.debug("findImage super user : " + profil.getName());
             return "superuser.jpg";
         }
+        
         return "user.png";
     }
 
@@ -120,11 +128,12 @@ public class ListeProfilsBean {
         users = new ArrayList<>();
         List<User> utilisateurs = new ArrayList<User>();
         utilisateurs = profilServiceBean.findAll(profil.getId());
-        String str;
+        String str = "";
         for (User user : utilisateurs) {
             str = user.getSerialNbr() + " " + user.getFirstName() + " " + user.getLastName();
             users.add(str);
         }
+        log.debug("findAllUser : " + profil.getId());
         return users;
 
     }
@@ -139,21 +148,23 @@ public class ListeProfilsBean {
             str = droit.getId() + " " + droit.getLabeel();
             permissions.add(str);
         }
+        log.debug("findAllDroits : " + profil.getId());
         return permissions;
     }
 
     public void onRowEdit(RowEditEvent event) {
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO + "Edit Changed " + profilId);
         FacesContext.getCurrentInstance().addMessage(null, msg);
+        log.debug("onRowEdit : " + profilId);
     }
 
     public void onRowCancel(RowEditEvent event) {
         FacesMessage msg = new FacesMessage("Edit Cancelled");
         FacesContext.getCurrentInstance().addMessage(null, msg);
+        log.debug("onRowCancel : " + profilId);
     }
 
     public void onCellEdit(CellEditEvent event) {
-
         Object oldValue = event.getOldValue();
         profil.setId(profilId);
         update(profil);

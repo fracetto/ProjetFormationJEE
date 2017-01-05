@@ -28,7 +28,7 @@
 		<!-- Support JSF & dependencies -->
 		<jsf.version>2.2.13</jsf.version>
 		<jstl.version>1.2</jstl.version>
-		<primefaces.version>5.3</primefaces.version>
+		<primefaces.version>6.0</primefaces.version>
 	</properties>
 
 	<dependencies>
@@ -62,34 +62,24 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- 			JSF -->
+	    <dependency>
+	        <groupId>com.sun.faces</groupId>
+	        <artifactId>jsf-api</artifactId>
+	        <version>2.2.2</version>
+	    </dependency>
+	    <dependency>
+	        <groupId>com.sun.faces</groupId>
+	        <artifactId>jsf-impl</artifactId>
+	        <version>2.2.2</version>
+	    </dependency>
 
-<!-- 		<dependency> -->
-<!-- 			<groupId>com.sun.faces</groupId> -->
-<!-- 			<artifactId>jsf-impl</artifactId> -->
-<!-- 			<version>${jsf.version}</version> -->
-<!-- 		</dependency> -->
-<dependency>
-			<groupId>com.sun.faces</groupId>
-			<artifactId>jsf-impl</artifactId>
-			<version>2.2.4</version>
-		</dependency>
-		<!-- Faces Library -->
-		<dependency>
-			<groupId>com.sun.faces</groupId>
-			<artifactId>jsf-api</artifactId>
-			<version>2.2.4</version>
-		</dependency>
 		<!-- Primefaces Version 5 -->
-		<dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces</artifactId>
-			<version>5.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.faces</groupId>
-			<artifactId>jsf-api</artifactId>
-			<version>${jsf.version}</version>
-		</dependency>
+		    <dependency>
+		        <groupId>org.primefaces</groupId>
+		        <artifactId>primefaces</artifactId>
+		        <version>6.0</version>
+		    </dependency>
 
 		<dependency>
 			<groupId>jstl</groupId>
@@ -109,11 +99,11 @@
 			<version>${commons.collections.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces</artifactId>
-			<version>${primefaces.version}</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 		    <groupId>org.primefaces.extensions</groupId> -->
+<!-- 		    <artifactId>primefaces-extensions</artifactId> -->
+<!-- 		    <version>6.0.0</version> -->
+<!-- 		</dependency> -->
 
 		<dependency>
 			<groupId>log4j</groupId>

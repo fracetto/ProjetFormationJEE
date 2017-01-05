@@ -1,13 +1,13 @@
 package fr.marseille.projetfinal.beans;
 
 import java.util.Map;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Component;
 
 import fr.marseille.projetfinal.model.User;
 import fr.marseille.projetfinal.service.UserService;
@@ -17,6 +17,10 @@ import fr.marseille.projetfinal.service.UserService;
 public class AfficherUserBean {
     private User                           user;
 //    private ClassPathXmlApplicationContext context;
+    
+    private static Logger log = Logger
+			.getLogger(AfficherUserBean.class);
+    
     @Autowired
     private UserService userServiceBean;
 
@@ -62,6 +66,7 @@ public class AfficherUserBean {
         
         if (!str.isEmpty()) {
 //            user = userServiceBean.findAll().get(0);/*DEBUG Spring*/
+        	log.info("Sortie Str: " + str);
             user = userServiceBean.find(Integer.parseInt(str));
             return user;
         }
